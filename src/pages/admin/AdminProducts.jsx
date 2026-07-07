@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../../config';
 import React, { useState, useEffect } from 'react';
 import { Trash2 } from 'lucide-react';
 import './AdminProducts.css';
@@ -19,7 +20,7 @@ const AdminProducts = () => {
       // Admin should be able to see all products, even inactive ones.
       // Assuming your backend /api/products returns all or you have an admin endpoint.
       // For now we use /api/products.
-      const response = await fetch('http://localhost:3001/api/products', {
+      const response = await fetch(`${API_BASE_URL}/api/products`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -44,7 +45,7 @@ const AdminProducts = () => {
     try {
       setDeleteLoading(id);
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`http://localhost:3001/api/products/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/products/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

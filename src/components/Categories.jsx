@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 import React, { useState, useEffect } from 'react';
 import { Star, Eye, ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -11,7 +12,7 @@ const Categories = ({ searchQuery = '' }) => {
     const fetchProducts = async () => {
       try {
         // Fetch all products (API should return active ones)
-        const response = await fetch('http://localhost:3001/api/products');
+        const response = await fetch(`${API_BASE_URL}/api/products`);
         const result = await response.json();
 
         if (result.success) {

@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config';
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Star, ShoppingCart, MessageSquare, ChevronRight } from 'lucide-react';
@@ -18,7 +19,7 @@ const ProductDetail = () => {
 
   const fetchProductDetail = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/api/products/${id}`);
+      const response = await fetch(`${API_BASE_URL}/api/products/${id}`);
       const data = await response.json();
       
       if (data.success) {

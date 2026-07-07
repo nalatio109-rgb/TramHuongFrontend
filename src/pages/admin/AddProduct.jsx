@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../../config';
 import React, { useState } from 'react';
 import { Plus, Trash2, Save, Upload, Link as LinkIcon, X } from 'lucide-react';
 import './AddProduct.css';
@@ -73,7 +74,7 @@ function AddProduct() {
     }
 
     try {
-      const response = await fetch('http://localhost:3001/api/upload', {
+      const response = await fetch(`${API_BASE_URL}/api/upload`, {
         method: 'POST',
         body: formDataObj,
       });
@@ -125,7 +126,7 @@ function AddProduct() {
 
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch('http://localhost:3001/api/products', {
+      const response = await fetch(`${API_BASE_URL}/api/products`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
