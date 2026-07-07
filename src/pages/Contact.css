@@ -113,12 +113,12 @@
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.03);
+  padding: 1rem 1.5rem;
+  background-color: #1a1512 !important;
   border: 1px solid rgba(223, 186, 115, 0.2);
-  border-radius: 4px;
-  color: var(--text-primary);
-  font-family: var(--font-sans);
+  border-radius: 8px;
+  color: #ffffff !important;
+  font-family: inherit;
   font-size: 1rem;
   transition: var(--transition-smooth);
 }
@@ -126,9 +126,21 @@
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
-  border-color: var(--color-gold-500);
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 0 15px rgba(223, 186, 115, 0.1);
+  background-color: #241e1a !important;
+  color: #ffffff !important;
+  border-color: #d4af37;
+  box-shadow: 0 0 0 2px rgba(223, 186, 115, 0.2);
+}
+
+.contact-form input:-webkit-autofill,
+.contact-form input:-webkit-autofill:hover, 
+.contact-form input:-webkit-autofill:focus, 
+.contact-form textarea:-webkit-autofill,
+.contact-form textarea:-webkit-autofill:hover,
+.contact-form textarea:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px #1d1714 inset !important;
+  -webkit-text-fill-color: #fff !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 .submit-btn {

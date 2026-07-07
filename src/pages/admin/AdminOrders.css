@@ -1,0 +1,146 @@
+.admin-orders-page {
+  padding: 1rem;
+}
+
+.admin-orders-page .admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.admin-orders-page .admin-header h1 {
+  font-size: 1.8rem;
+  color: #dfba73;
+}
+
+.admin-orders-table-container {
+  background-color: #1a1512;
+  border-radius: 8px;
+  border: 1px solid rgba(223, 186, 115, 0.2);
+  overflow-x: auto;
+}
+
+.admin-orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.admin-orders-table th,
+.admin-orders-table td {
+  padding: 1rem 1.5rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.admin-orders-table th {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.admin-orders-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.admin-orders-table .status-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.admin-orders-table .status-pending {
+  background-color: rgba(223, 186, 115, 0.1);
+  color: #dfba73;
+  border: 1px solid rgba(223, 186, 115, 0.2);
+}
+
+.admin-orders-table .status-processing {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.admin-orders-table .status-shipped {
+  background-color: rgba(168, 85, 247, 0.1);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+.admin-orders-table .status-delivered {
+  background-color: rgba(34, 197, 94, 0.1);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.admin-orders-table .status-cancelled {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.admin-orders-table .status-select {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(223, 186, 115, 0.3);
+  color: #fff;
+  padding: 0.4rem;
+  border-radius: 4px;
+  outline: none;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.admin-orders-table .status-select:focus {
+  border-color: #dfba73;
+}
+
+.admin-orders-table .status-select option {
+  background: #1a1512;
+  color: #fff;
+}
+
+.admin-orders-table .btn-icon {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-orders-table .btn-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.admin-orders-table .btn-icon.edit-mode {
+  color: #dfba73;
+}
+
+.admin-orders-table .btn-icon.save-mode {
+  color: #4ade80;
+}
+
+.admin-orders-table .customer-info p {
+  margin: 0.2rem 0;
+  font-size: 0.9rem;
+}
+
+.admin-orders-table .customer-name {
+  font-weight: 600;
+  color: #fff;
+}
+
+.admin-orders-page .empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: rgba(255, 255, 255, 0.5);
+}

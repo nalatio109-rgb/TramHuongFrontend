@@ -10,6 +10,7 @@ import AdminLayout from './components/admin/AdminLayout';
 import Login from './pages/admin/Login';
 import AddProduct from './pages/admin/AddProduct';
 import AdminProducts from './pages/admin/AdminProducts';
+import AdminOrders from './pages/admin/AdminOrders';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
@@ -72,6 +73,7 @@ function App() {
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="products" element={<AdminProducts />} />
           <Route path="add-product" element={<AddProduct />} />
+          <Route path="orders" element={<AdminOrders />} />
         </Route>
 
         {/* Các route dành cho người dùng (Public) */}
