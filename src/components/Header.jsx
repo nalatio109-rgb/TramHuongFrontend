@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Search, ShoppingBag, Menu, X, MessageSquare } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
-const Header = ({ onSearch, cartCount = 0 }) => {
+const Header = ({ onSearch }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+  const { cartCount } = useCart();
+  const navigate = useNavigate();
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -70,7 +73,7 @@ const Header = ({ onSearch, cartCount = 0 }) => {
 
           {/* Cart Icon */}
           <div className="cart-icon-wrapper">
-            <button className="cart-btn" aria-label="Giỏ hàng">
+            <button className="cart-btn" aria-label="Giỏ hàng" onClick={() => navigate('/cart')}>
               <ShoppingBag size={20} />
               {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
             </button>

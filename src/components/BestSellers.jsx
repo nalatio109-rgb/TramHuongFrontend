@@ -1,11 +1,13 @@
 import { API_BASE_URL } from '../config';
 import React, { useState, useEffect } from 'react';
-import { Star, ShoppingCart, Eye } from 'lucide-react';
+import { Star, ShoppingCart, Eye, PlusCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
 const BestSellers = ({ onViewDetail }) => {
   const [bestSellersList, setBestSellersList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     const fetchBestSellers = async () => {
@@ -82,15 +84,17 @@ const BestSellers = ({ onViewDetail }) => {
               >
                 Chi tiết
               </Link>
-              <a
-                href={product.shopeeUrl || '#'}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => {
+                  addToCart(product, 1);
+                  alert('Đã thêm vào giỏ hàng!');
+                }}
                 className="btn-shopee btn-shopee-small"
+                style={{ background: 'transparent', border: '1px solid #d4af37', color: '#d4af37' }}
               >
-                <ShoppingCart size={12} />
-                <span>Shopee</span>
-              </a>
+                <PlusCircle size={12} />
+                <span>Thêm</span>
+              </button>
             </div>
           </div>
         </div>

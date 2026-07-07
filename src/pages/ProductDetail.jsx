@@ -1,7 +1,8 @@
 import { API_BASE_URL } from '../config';
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { Star, ShoppingCart, MessageSquare, ChevronRight } from 'lucide-react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { Star, ShoppingCart, MessageSquare, ChevronRight, PlusCircle } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 import './ProductDetail.css';
 
 const ProductDetail = () => {
@@ -10,6 +11,22 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [activeImage, setActiveImage] = useState('');
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
+
+  const handleAddToCart = () => {
+    if (product) {
+      addToCart(product, 1);
+      alert('Đã thêm sản phẩm vào giỏ hàng!');
+    }
+  };
+
+  const handleBuyNow = () => {
+    if (product) {
+      addToCart(product, 1);
+      navigate('/checkout');
+    }
+  };
 
   useEffect(() => {
     // Cuộn lên đầu trang khi vào trang chi tiết
@@ -131,25 +148,22 @@ const ProductDetail = () => {
           )}
 
           <div className="product-detail-actions">
-            <a 
-              href={product.shopeeUrl || '#'} 
-              target="_blank" 
-              rel="noopener noreferrer"
+            <button 
+              onClick={handleBuyNow}
               className="btn-buy-now"
             >
               <ShoppingCart size={20} />
-              Mua ngay trên Shopee
-            </a>
+              Mua ngay
+            </button>
             
-            <a 
-              href="https://zalo.me/0905971485" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="btn-contact-zalo"
+            <button 
+              onClick={handleAddToCart}
+              className="btn-buy-now"
+              style={{ background: 'rgba(223, 186, 115, 0.1)', color: '#d4af37', border: '1px solid #d4af37' }}
             >
-              <MessageSquare size={20} />
-              Tư vấn Zalo
-            </a>
+              <PlusCircle size={20} />
+              Thêm vào giỏ
+            </button>
           </div>
         </div>
         

@@ -12,6 +12,9 @@ import AddProduct from './pages/admin/AddProduct';
 import AdminProducts from './pages/admin/AdminProducts';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
+import { CartProvider } from './context/CartContext';
 
 // Component để tự động cuộn lên đầu trang khi chuyển route và xử lý hiệu ứng reveal
 const ScrollToTop = () => {
@@ -50,11 +53,13 @@ const ScrollToTop = () => {
 
 // Layout cho trang người dùng
 const PublicLayout = ({ children }) => (
-  <div className="app-wrapper">
-    <Header />
-    {children}
-    <Footer />
-  </div>
+  <CartProvider>
+    <div className="app-wrapper">
+      <Header />
+      {children}
+      <Footer />
+    </div>
+  </CartProvider>
 );
 
 function App() {
@@ -79,6 +84,8 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
             </Routes>
           </PublicLayout>
         } />
@@ -88,4 +95,3 @@ function App() {
 }
 
 export default App;
-

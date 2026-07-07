@@ -1,4 +1,5 @@
 import React from 'react';
+import { Sparkles } from 'lucide-react';
 
 const brandValuesList = [
   {
@@ -32,14 +33,7 @@ const brandValuesList = [
     title: 'Hương Thơm Thanh Khiết',
     desc: 'Hương thơm ngọt dịu, nhẹ nhàng mà thanh cao. Lưu giữ vĩnh viễn, càng đeo càng thơm khi tiếp xúc nhiệt độ cơ thể.',
     icon: (
-      <svg className="value-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        {/* Smoke / Aroma waves */}
-        <path d="M8 22a4 4 0 0 1-4-4c0-1.7 1.3-3.2 3-3.8V8a5 5 0 0 1 10 0v6.2c1.7.6 3 2.1 3 3.8a4 4 0 0 1-4 4" />
-        <path d="M12 8v6" />
-        <path d="M12 2v2" />
-        <path d="M15.5 3.5a1 1 0 1 1-1.4 1.4" />
-        <path d="M9.9 4.9a1 1 0 1 1-1.4-1.4" />
-      </svg>
+      <Sparkles className="value-icon" size={32} />
     )
   },
   {

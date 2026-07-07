@@ -176,6 +176,29 @@ button {
   border-radius: 4px;
 }
 
+/* Buttons */
+.btn-primary {
+  background: var(--color-gold-500);
+  background: linear-gradient(135deg, var(--color-gold-300), var(--color-gold-700));
+  color: #000;
+  font-weight: 600;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  border: none;
+  display: inline-block;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  text-align: center;
+  box-shadow: var(--gold-glow);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--color-gold-100), var(--color-gold-500));
+  transform: translateY(-2px);
+  box-shadow: var(--gold-glow-intense);
+  color: #000;
+}
+
 /* Animation Keyframes */
 @keyframes fadeInUp {
   from {
