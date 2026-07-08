@@ -13,10 +13,10 @@ const Hero = () => {
             <span>Võ Quang Rin – Trầm Hương Tự Nhiên</span>
             <span className="zen-circle-dot"></span>
           </div>
-          
+
           <h1 className="hero-title">
-            <span className="gold-text-gradient">TINH HOA TRẦM HƯƠNG</span>
-            <span className="hero-subtitle">KẾT NỐI GIÁ TRỊ TÂM LINH</span>
+            <span className="gold-text-gradient">Tinh Hoa Trầm Hương</span>
+            <span className="hero-subtitle">Kết nối giá trị Tâm Linh</span>
           </h1>
 
           <div className="zen-divider">
@@ -24,7 +24,7 @@ const Hero = () => {
           </div>
 
           <p className="hero-description">
-            Mang đến những sản phẩm trầm hương tự nhiên, chế tác tinh xảo, 
+            Mang đến những sản phẩm trầm hương tự nhiên, chế tác tinh xảo,
             giúp thư giãn, an yên và lan tỏa giá trị phong thủy tốt lành đến mọi gia đình.
           </p>
 

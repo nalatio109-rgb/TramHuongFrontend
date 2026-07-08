@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Outfit:wght@300;400;500;600;700&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 
 :root {
   /* Color Palette - Luxury Dark Zen & Gold */
@@ -808,8 +808,11 @@ button {
 }
 
 .hero-title {
-  font-size: 3.5rem;
-  font-weight: 700;
+  font-family: 'Great Vibes', cursive;
+  font-size: 5rem;
+  /* Increased size slightly because script fonts tend to look smaller */
+  font-weight: 400;
+  /* Script fonts usually look best at normal weight */
   line-height: 1.15;
   letter-spacing: 0.05em;
   margin-bottom: 1rem;
