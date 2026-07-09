@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://rintram.com/sitemap.xml
