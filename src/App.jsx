@@ -15,6 +15,7 @@ import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
+import ContactWidget from './components/ContactWidget';
 import { CartProvider } from './context/CartContext';
 
 // Component để tự động cuộn lên đầu trang khi chuyển route và xử lý hiệu ứng reveal
@@ -59,6 +60,7 @@ const PublicLayout = ({ children }) => (
       <Header />
       {children}
       <Footer />
+      <ContactWidget />
     </div>
   </CartProvider>
 );
