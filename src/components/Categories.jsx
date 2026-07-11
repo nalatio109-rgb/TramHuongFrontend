@@ -8,7 +8,7 @@ const Categories = ({ searchQuery = '' }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { addToCart } = useCart();
+  const { addToCart, triggerCartAnimation } = useCart();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -129,9 +129,9 @@ const Categories = ({ searchQuery = '' }) => {
                       <span>Xem Chi Tiết</span>
                     </Link>
                     <button
-                      onClick={() => {
+                      onClick={(e) => {
                         addToCart(product, 1);
-                        alert('Đã thêm vào giỏ hàng!');
+                        triggerCartAnimation(e, product.image || '/images/vong_tay.png');
                       }}
                       className="btn-shopee"
                       style={{ background: 'transparent', border: '1px solid #d4af37', color: '#d4af37' }}

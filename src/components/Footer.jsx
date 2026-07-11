@@ -36,19 +36,19 @@ const Footer = () => {
               </span>
             </li>
             <li>
-              <a href="tel:0905971485" className="contact-link-item">
+              <a href="tel:0961244567" className="contact-link-item">
                 <div className="contact-icon-box">
                   <Phone size={18} />
                 </div>
-                <span className="contact-text">Hotline: 0905.971.485</span>
+                <span className="contact-text">Hotline: 096 124 45 67</span>
               </a>
             </li>
             <li>
-              <a href="https://zalo.me/0905971485" target="_blank" rel="noopener noreferrer" className="contact-link-item">
+              <a href="https://zalo.me/0961244567" target="_blank" rel="noopener noreferrer" className="contact-link-item">
                 <div className="contact-icon-box">
                   <MessageSquare size={18} />
                 </div>
-                <span className="contact-text">Zalo: 0905.971.485 (Võ Quang Rin)</span>
+                <span className="contact-text">Zalo: 096 124 45 67 (Võ Quang Rin)</span>
               </a>
             </li>
             <li>
@@ -63,7 +63,7 @@ const Footer = () => {
 
           <div className="social-links-row">
             <a
-              href="https://facebook.com"
+              href="https://www.facebook.com/rintramhuongg/?locale=vi_VN"
               target="_blank"
               rel="noopener noreferrer"
               className="social-icon-btn"
@@ -81,7 +81,7 @@ const Footer = () => {
               <ShoppingBag size={18} />
             </a>
             <a
-              href="https://zalo.me/0905971485"
+              href="https://zalo.me/0961244567"
               target="_blank"
               rel="noopener noreferrer"
               className="social-icon-btn"

@@ -81,7 +81,7 @@ const Header = ({ onSearch }) => {
 
           {/* Zalo Icon Button */}
           <a
-            href="https://zalo.me/0905971485"
+            href="https://zalo.me/0961244567"
             target="_blank"
             rel="noopener noreferrer"
             className="zalo-action-btn"
@@ -141,7 +141,7 @@ const Header = ({ onSearch }) => {
           </form>
           {/* Mobile Zalo link */}
           <a
-            href="https://zalo.me/0905971485"
+            href="https://zalo.me/0961244567"
             target="_blank"
             rel="noopener noreferrer"
             className="mobile-zalo-btn"

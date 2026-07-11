@@ -11,13 +11,13 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [activeImage, setActiveImage] = useState('');
-  const { addToCart } = useCart();
+  const { addToCart, triggerCartAnimation } = useCart();
   const navigate = useNavigate();
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e) => {
     if (product) {
       addToCart(product, 1);
-      alert('Đã thêm sản phẩm vào giỏ hàng!');
+      triggerCartAnimation(e, activeImage || product.image || '/images/vong_tay.png');
     }
   };
 

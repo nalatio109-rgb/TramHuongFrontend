@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PhoneCall, MessageCircle, Headphones } from 'lucide-react';
+import { PhoneCall, Facebook, Headphones } from 'lucide-react';
 import './ContactWidget.css';
 
 const ContactWidget = () => {
@@ -13,18 +13,18 @@ const ContactWidget = () => {
     >
       {/* Expandable Action Buttons */}
       <div className="contact-actions">
-        {/* Messenger */}
-        <a href="https://m.me/rintramhuong" target="_blank" rel="noreferrer" className="contact-action-btn btn-mess" title="Chat Messenger">
-          <MessageCircle size={22} />
+        {/* Facebook */}
+        <a href="https://www.facebook.com/rintramhuongg/?locale=vi_VN" target="_blank" rel="noreferrer" className="contact-action-btn btn-mess" title="Facebook">
+          <Facebook size={22} />
         </a>
 
         {/* Zalo */}
-        <a href="https://zalo.me/0901234567" target="_blank" rel="noreferrer" className="contact-action-btn btn-zalo" title="Chat Zalo">
+        <a href="https://zalo.me/0961244567" target="_blank" rel="noreferrer" className="contact-action-btn btn-zalo" title="Chat Zalo">
           <span className="zalo-text">Zalo</span>
         </a>
 
         {/* Phone */}
-        <a href="tel:0901234567" className="contact-action-btn btn-phone" title="Gọi Điện Thoại">
+        <a href="tel:0961244567" className="contact-action-btn btn-phone" title="Gọi Điện Thoại">
           <PhoneCall size={22} />
         </a>
       </div>

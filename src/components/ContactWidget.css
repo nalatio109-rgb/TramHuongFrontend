@@ -33,25 +33,25 @@
   width: 65px;
   height: 65px;
   border-radius: 50%;
-  border: 2px solid rgba(212, 175, 55, 0.8);
-  background: linear-gradient(135deg, #1c1511, #0a0806);
-  color: #d4af37;
+  border: 2px solid #ffe18c;
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  color: #120e0c;
   cursor: pointer;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   outline: none;
 }
 
 .contact-toggle-btn:hover {
   transform: scale(1.1);
-  background: linear-gradient(135deg, #d4af37, #b8860b);
+  background: linear-gradient(135deg, #ffdf00, #d4af37);
   color: #120e0c;
-  border-color: #ffe18c;
-  box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+  border-color: #ffffff;
+  box-shadow: 0 15px 40px rgba(255, 223, 0, 0.6);
 }
 
 .contact-toggle-btn .btn-icon {
@@ -125,7 +125,7 @@
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  border: 1px solid #d4af37;
+  border: 2px solid #d4af37;
   border-radius: 50%;
   z-index: 1;
   animation: dual-pulse-ring 3s infinite cubic-bezier(0.215, 0.61, 0.355, 1);

@@ -7,7 +7,7 @@ import { useCart } from '../context/CartContext';
 const BestSellers = ({ onViewDetail }) => {
   const [bestSellersList, setBestSellersList] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { addToCart } = useCart();
+  const { addToCart, triggerCartAnimation } = useCart();
 
   useEffect(() => {
     const fetchBestSellers = async () => {
@@ -85,9 +85,9 @@ const BestSellers = ({ onViewDetail }) => {
                 Chi tiết
               </Link>
               <button
-                onClick={() => {
+                onClick={(e) => {
                   addToCart(product, 1);
-                  alert('Đã thêm vào giỏ hàng!');
+                  triggerCartAnimation(e, product.image || '/images/vong_tay.png');
                 }}
                 className="btn-shopee btn-shopee-small"
                 style={{ background: 'transparent', border: '1px solid #d4af37', color: '#d4af37' }}

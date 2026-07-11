@@ -10,7 +10,7 @@ function Cart() {
 
   const handleQuantityChange = (id, currentQty, delta) => {
     const newQty = currentQty + delta;
-    if (newQty > 0) {
+    if (newQty > 0) { 
       updateQuantity(id, newQty);
     }
   };

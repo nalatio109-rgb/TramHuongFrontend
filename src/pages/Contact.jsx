@@ -51,14 +51,14 @@ function Contact() {
                 <div className="contact-icon"><Phone size={20} /></div>
                 <div>
                   <h4>Hotline Tư Vấn</h4>
-                  <p>0905.971.485</p>
+                  <p>096 124 45 67</p>
                 </div>
               </div>
               <div className="contact-item">
                 <div className="contact-icon"><MessageSquare size={20} /></div>
                 <div>
                   <h4>Zalo (Võ Quang Rin)</h4>
-                  <p>0905.971.485</p>
+                  <p>096 124 45 67</p>
                 </div>
               </div>
               <div className="contact-item">
@@ -78,7 +78,7 @@ function Contact() {
             </div>
             
             <a 
-              href="https://zalo.me/0905971485" 
+              href="https://zalo.me/0961244567" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="btn-gold contact-zalo-btn"
