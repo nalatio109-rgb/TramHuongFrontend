@@ -32,12 +32,19 @@ const Categories = ({ searchQuery = '' }) => {
     fetchProducts();
   }, []);
 
+  const removeAccents = (str) => {
+    return str.normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+              .replace(/đ/g, 'd').replace(/Đ/g, 'D')
+              .toLowerCase();
+  };
+
   // Filter products based on search query
   const filteredProducts = products.filter((product) => {
-    const query = searchQuery.toLowerCase();
-    const name = product.name ? product.name.toLowerCase() : '';
-    const desc = product.description ? product.description.toLowerCase() : '';
-    const category = product.category ? product.category.toLowerCase() : '';
+    const query = removeAccents(searchQuery);
+    const name = removeAccents(product.name || '');
+    const desc = removeAccents(product.description || '');
+    const category = removeAccents(product.category || '');
 
     return name.includes(query) || desc.includes(query) || category.includes(query);
   });
@@ -85,7 +92,7 @@ const Categories = ({ searchQuery = '' }) => {
                   />
                   <div className="product-card-overlay">
                     <Link
-                      to={`/product/${product._id}`}
+                      to={`/product/${product.slug || product._id}`}
                       className="quick-view-btn"
                       title="Xem chi tiết"
                     >
@@ -122,7 +129,7 @@ const Categories = ({ searchQuery = '' }) => {
                   {/* Action Buttons */}
                   <div className="product-actions-row">
                     <Link
-                      to={`/product/${product._id}`}
+                      to={`/product/${product.slug || product._id}`}
                       className="product-detail-btn"
                       style={{ textDecoration: 'none' }}
                     >

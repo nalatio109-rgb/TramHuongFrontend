@@ -1,0 +1,27 @@
+.admin-blogs-container {
+  padding: 1rem;
+}
+
+.blog-title-cell {
+  max-width: 300px;
+}
+
+.blog-summary-hint {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Edit button styling */
+.btn-icon.edit {
+  color: #4CAF50;
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+.btn-icon.edit:hover {
+  background-color: #4CAF50;
+  color: white;
+}

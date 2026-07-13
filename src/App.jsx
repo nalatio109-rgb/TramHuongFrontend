@@ -5,12 +5,16 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './components/About';
 import Blog from './components/Blog';
+import BlogDetail from './pages/BlogDetail';
 import Contact from './pages/Contact';
 import AdminLayout from './components/admin/AdminLayout';
 import Login from './pages/admin/Login';
 import AddProduct from './pages/admin/AddProduct';
 import AdminProducts from './pages/admin/AdminProducts';
 import AdminOrders from './pages/admin/AdminOrders';
+import AdminBlogs from './pages/admin/AdminBlogs';
+import AddBlog from './pages/admin/AddBlog';
+import EditBlog from './pages/admin/EditBlog';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
@@ -76,6 +80,9 @@ function App() {
           <Route path="products" element={<AdminProducts />} />
           <Route path="add-product" element={<AddProduct />} />
           <Route path="orders" element={<AdminOrders />} />
+          <Route path="blogs" element={<AdminBlogs />} />
+          <Route path="add-blog" element={<AddBlog />} />
+          <Route path="edit-blog/:id" element={<EditBlog />} />
         </Route>
 
         {/* Các route dành cho người dùng (Public) */}
@@ -87,6 +94,7 @@ function App() {
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/about" element={<About />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:id" element={<BlogDetail />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />

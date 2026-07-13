@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, Navigate, NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { PlusCircle, LogOut, Package, List, ShoppingBag } from 'lucide-react';
+import { PlusCircle, LogOut, Package, List, ShoppingBag, FileText, Edit3 } from 'lucide-react';
 import './AdminLayout.css';
 
 const AdminLayout = () => {
@@ -51,6 +51,20 @@ const AdminLayout = () => {
           >
             <PlusCircle size={20} />
             Thêm sản phẩm
+          </NavLink>
+          <NavLink 
+            to="/admin/blogs" 
+            className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`}
+          >
+            <FileText size={20} />
+            Bài viết
+          </NavLink>
+          <NavLink 
+            to="/admin/add-blog" 
+            className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`}
+          >
+            <Edit3 size={20} />
+            Thêm bài viết
           </NavLink>
           <NavLink 
             to="/" 

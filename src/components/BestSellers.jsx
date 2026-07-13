@@ -42,7 +42,7 @@ const BestSellers = ({ onViewDetail }) => {
             />
             <div className="slider-card-overlay">
               <Link
-                to={`/product/${product._id}`}
+                to={`/product/${product.slug || product._id}`}
                 className="quick-view-btn"
                 title="Xem chi tiết"
               >
@@ -78,7 +78,7 @@ const BestSellers = ({ onViewDetail }) => {
             {/* Action */}
             <div className="slider-actions-row">
               <Link
-                to={`/product/${product._id}`}
+                to={`/product/${product.slug || product._id}`}
                 className="slider-detail-btn"
                 style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
