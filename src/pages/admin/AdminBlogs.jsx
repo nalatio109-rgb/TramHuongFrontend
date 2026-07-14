@@ -18,7 +18,7 @@ const AdminBlogs = () => {
   const fetchBlogs = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('adminToken');
+      const token = localStorage.getItem('userToken');
       // Thêm limit lớn để lấy nhiều bài viết trong admin
       const response = await fetch(`${API_BASE_URL}/api/blog?limit=100`, {
         headers: {
@@ -44,7 +44,7 @@ const AdminBlogs = () => {
     
     try {
       setDeleteLoading(id);
-      const token = localStorage.getItem('adminToken');
+      const token = localStorage.getItem('userToken');
       const response = await fetch(`${API_BASE_URL}/api/blog/${id}`, {
         method: 'DELETE',
         headers: {

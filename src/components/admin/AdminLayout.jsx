@@ -1,20 +1,25 @@
 import React from 'react';
 import { Outlet, Navigate, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { PlusCircle, LogOut, Package, List, ShoppingBag, FileText, Edit3 } from 'lucide-react';
+import { useUserAuth } from '../../context/UserAuthContext';
 import './AdminLayout.css';
 
 const AdminLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const token = localStorage.getItem('adminToken');
+  const { user, token, logout, loading } = useUserAuth();
 
-  if (!token) {
-    return <Navigate to="/admin/login" replace />;
+  if (loading) {
+    return <div>Đang kiểm tra quyền truy cập...</div>;
+  }
+
+  if (!token || !user || user.role !== 'admin') {
+    return <Navigate to="/auth" replace />;
   }
 
   const handleLogout = () => {
-    localStorage.removeItem('adminToken');
-    navigate('/admin/login');
+    logout();
+    navigate('/auth');
   };
 
   // Nếu người dùng vào thẳng /admin, điều hướng sang /admin/products

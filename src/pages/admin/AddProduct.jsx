@@ -125,7 +125,7 @@ function AddProduct() {
     };
 
     try {
-      const token = localStorage.getItem('adminToken');
+      const token = localStorage.getItem('userToken');
       const response = await fetch(`${API_BASE_URL}/api/products`, {
         method: 'POST',
         headers: {

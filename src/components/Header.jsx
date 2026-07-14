@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, ShoppingBag, Menu, X, MessageSquare } from 'lucide-react';
+import { Search, ShoppingBag, Menu, X, MessageSquare, User, LogOut } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useUserAuth } from '../context/UserAuthContext';
 import { API_BASE_URL } from '../config';
 
 const Header = ({ onSearch }) => {
@@ -13,6 +14,7 @@ const Header = ({ onSearch }) => {
   const searchRef = useRef(null);
   
   const { cartCount } = useCart();
+  const { user, logout } = useUserAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -178,8 +180,31 @@ const Header = ({ onSearch }) => {
             )}
           </div>
 
+          {/* User Icon */}
+          <div className="user-icon-wrapper" style={{ marginLeft: '15px', position: 'relative' }}>
+            {user ? (
+              <div 
+                className="user-profile-menu"
+                style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', color: 'var(--color-gold-500)' }}
+                onClick={() => {
+                  if (window.confirm('Bạn có chắc muốn đăng xuất?')) {
+                    logout();
+                    navigate('/');
+                  }
+                }}
+                title={`Đăng xuất (${user.fullName})`}
+              >
+                <LogOut size={20} />
+              </div>
+            ) : (
+              <button className="user-btn" aria-label="Đăng nhập" onClick={() => navigate('/auth')} style={{ background: 'none', border: 'none', color: 'var(--text-color)', cursor: 'pointer', padding: '5px' }}>
+                <User size={20} />
+              </button>
+            )}
+          </div>
+
           {/* Cart Icon */}
-          <div className="cart-icon-wrapper">
+          <div className="cart-icon-wrapper" style={{ marginLeft: '15px' }}>
             <button className="cart-btn" aria-label="Giỏ hàng" onClick={() => navigate('/cart')}>
               <ShoppingBag size={20} />
               {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
@@ -233,6 +258,30 @@ const Header = ({ onSearch }) => {
               </a>
             )
           ))}
+          
+          {/* Mobile User Auth */}
+          {user ? (
+            <div className="mobile-nav-link" style={{ color: 'var(--color-gold-500)', cursor: 'pointer' }} onClick={() => {
+              if (window.confirm('Bạn có chắc muốn đăng xuất?')) {
+                logout();
+                navigate('/');
+                setIsMobileMenuOpen(false);
+              }
+            }}>
+              <LogOut size={18} style={{ marginRight: '8px', display: 'inline-block', verticalAlign: 'middle' }} />
+              Đăng xuất ({user.fullName})
+            </div>
+          ) : (
+            <Link
+              to="/auth"
+              className="mobile-nav-link"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <User size={18} style={{ marginRight: '8px', display: 'inline-block', verticalAlign: 'middle' }} />
+              Đăng nhập / Đăng ký
+            </Link>
+          )}
+
           {/* Mobile Search */}
           <div className="mobile-search-container" style={{ position: 'relative', width: '100%', padding: '0 20px', marginBottom: '20px' }}>
             <form onSubmit={handleSearchSubmit} className="mobile-search-form" style={{ margin: 0 }}>

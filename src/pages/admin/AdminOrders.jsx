@@ -23,7 +23,7 @@ const AdminOrders = () => {
 
   const fetchOrders = async () => {
     try {
-      const token = localStorage.getItem('adminToken');
+      const token = localStorage.getItem('userToken');
       if (!token) {
         setError('Không có quyền truy cập');
         setLoading(false);
@@ -51,7 +51,7 @@ const AdminOrders = () => {
 
   const handleUpdateStatus = async (orderId) => {
     try {
-      const token = localStorage.getItem('adminToken');
+      const token = localStorage.getItem('userToken');
       const response = await fetch(`${API_BASE_URL}/api/orders/${orderId}/status`, {
         method: 'PUT',
         headers: {

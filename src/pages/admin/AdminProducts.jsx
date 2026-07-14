@@ -16,7 +16,7 @@ const AdminProducts = () => {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('adminToken');
+      const token = localStorage.getItem('userToken');
       // Admin should be able to see all products, even inactive ones.
       // Assuming your backend /api/products returns all or you have an admin endpoint.
       // For now we use /api/products.
@@ -44,7 +44,7 @@ const AdminProducts = () => {
     
     try {
       setDeleteLoading(id);
-      const token = localStorage.getItem('adminToken');
+      const token = localStorage.getItem('userToken');
       const response = await fetch(`${API_BASE_URL}/api/products/${id}`, {
         method: 'DELETE',
         headers: {

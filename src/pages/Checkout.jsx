@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useUserAuth } from '../context/UserAuthContext';
 import { API_BASE_URL } from '../config';
 import { CheckCircle } from 'lucide-react';
 import './Checkout.css';
 
 function Checkout() {
   const { cartItems, cartTotal, clearCart } = useCart();
+  const { user, token } = useUserAuth();
   const navigate = useNavigate();
   
   const [formData, setFormData] = useState({
-    customerName: '',
-    customerPhone: '',
-    customerAddress: '',
+    customerName: user?.fullName || '',
+    customerPhone: user?.phone || '',
+    customerAddress: user?.address || '',
     note: '',
     paymentMethod: 'cod' // default payment method
   });
@@ -51,11 +53,18 @@ function Checkout() {
         }))
       };
 
+      const headers = {
+        'Content-Type': 'application/json'
+      };
+      // Nếu có user, có thể gửi kèm token (tùy backend hỗ trợ lưu userId cho order hay không)
+      // Hiện tại backend model Order chưa có userId, nên cứ gửi bình thường
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
       const response = await fetch(`${API_BASE_URL}/api/orders`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: headers,
         body: JSON.stringify(orderData)
       });
 

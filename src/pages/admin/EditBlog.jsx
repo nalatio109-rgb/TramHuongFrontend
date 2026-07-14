@@ -72,7 +72,7 @@ const EditBlog = () => {
 
     try {
       setLoading(true);
-      const token = localStorage.getItem('adminToken');
+      const token = localStorage.getItem('userToken');
       
       const response = await fetch(`${API_BASE_URL}/api/blog/${id}`, {
         method: 'PUT',

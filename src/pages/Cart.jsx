@@ -2,11 +2,21 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Trash2, Plus, Minus, ArrowRight, ShoppingBag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useUserAuth } from '../context/UserAuthContext';
 import './Cart.css';
 
 function Cart() {
   const { cartItems, updateQuantity, removeFromCart, cartTotal } = useCart();
+  const { user } = useUserAuth();
   const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    if (user) {
+      navigate('/checkout');
+    } else {
+      navigate('/auth?redirect=/checkout');
+    }
+  };
 
   const handleQuantityChange = (id, currentQty, delta) => {
     const newQty = currentQty + delta;
@@ -107,7 +117,7 @@ function Cart() {
               
               <button 
                 className="btn-primary w-100 mt-4 checkout-btn"
-                onClick={() => navigate('/checkout')}
+                onClick={handleCheckout}
               >
                 Tiến hành thanh toán <ArrowRight size={20} className="ml-2" />
               </button>
