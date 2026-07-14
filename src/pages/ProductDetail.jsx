@@ -24,7 +24,7 @@ const ProductDetail = () => {
   const handleBuyNow = () => {
     if (product) {
       addToCart(product, 1);
-      navigate('/checkout');
+      navigate('/thanh-toan');
     }
   };
 
@@ -101,7 +101,7 @@ const ProductDetail = () => {
           <div className="breadcrumb">
             <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>Trang chủ</Link>
             <ChevronRight size={16} />
-            <Link to="/products" style={{ color: 'inherit', textDecoration: 'none' }}>Sản phẩm</Link>
+            <Link to="/san-pham" style={{ color: 'inherit', textDecoration: 'none' }}>Sản phẩm</Link>
             <ChevronRight size={16} />
             <span className="current">{product.category}</span>
           </div>

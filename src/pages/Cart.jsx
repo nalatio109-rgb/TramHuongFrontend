@@ -12,9 +12,9 @@ function Cart() {
 
   const handleCheckout = () => {
     if (user) {
-      navigate('/checkout');
+      navigate('/thanh-toan');
     } else {
-      navigate('/auth?redirect=/checkout');
+      navigate('/tai-khoan?redirect=/thanh-toan');
     }
   };
 
@@ -36,7 +36,7 @@ function Cart() {
           <ShoppingBag size={64} className="empty-cart-icon mx-auto mb-4" />
           <h1 className="gold-text-gradient mb-3">Giỏ hàng trống</h1>
           <p className="mb-4">Bạn chưa chọn sản phẩm nào vào giỏ hàng.</p>
-          <Link to="/products" className="btn-primary">
+          <Link to="/san-pham" className="btn-primary">
             Tiếp tục mua sắm
           </Link>
         </div>
@@ -58,13 +58,13 @@ function Cart() {
                   src={item.image || '/images/vong_tay.png'} 
                   alt={item.name} 
                   className="cart-item-img"
-                  onClick={() => navigate(`/product/${item.slug || item._id}`)}
+                  onClick={() => navigate(`/san-pham/${item.slug || item._id}`)}
                 />
                 
                 <div className="cart-item-details">
                   <h3 
                     className="cart-item-name"
-                    onClick={() => navigate(`/product/${item.slug || item._id}`)}
+                    onClick={() => navigate(`/san-pham/${item.slug || item._id}`)}
                   >
                     {item.name}
                   </h3>
@@ -123,7 +123,7 @@ function Cart() {
               </button>
               
               <div className="mt-4 text-center">
-                <Link to="/products" className="continue-shopping-link">
+                <Link to="/san-pham" className="continue-shopping-link">
                   &#8592; Tiếp tục mua sắm
                 </Link>
               </div>

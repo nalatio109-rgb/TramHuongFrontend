@@ -92,7 +92,7 @@ const Categories = ({ searchQuery = '' }) => {
                   />
                   <div className="product-card-overlay">
                     <Link
-                      to={`/product/${product.slug || product._id}`}
+                      to={`/san-pham/${product.slug || product._id}`}
                       className="quick-view-btn"
                       title="Xem chi tiết"
                     >
@@ -129,7 +129,7 @@ const Categories = ({ searchQuery = '' }) => {
                   {/* Action Buttons */}
                   <div className="product-actions-row">
                     <Link
-                      to={`/product/${product.slug || product._id}`}
+                      to={`/san-pham/${product.slug || product._id}`}
                       className="product-detail-btn"
                       style={{ textDecoration: 'none' }}
                     >

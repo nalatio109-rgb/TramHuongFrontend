@@ -111,7 +111,7 @@ function Checkout() {
         <div className="container text-center">
           <h2>Giỏ hàng trống</h2>
           <p className="mt-3">Vui lòng thêm sản phẩm vào giỏ hàng trước khi thanh toán.</p>
-          <Link to="/products" className="btn-primary mt-4">Mua sắm ngay</Link>
+          <Link to="/san-pham" className="btn-primary mt-4">Mua sắm ngay</Link>
         </div>
       </div>
     );

@@ -90,15 +90,15 @@ function App() {
               <PublicLayout>
                 <Routes>
                   <Route path="/" element={<Home />} />
-                  <Route path="/products" element={<Products />} />
-                  <Route path="/product/:id" element={<ProductDetail />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/blog" element={<Blog />} />
-                  <Route path="/blog/:id" element={<BlogDetail />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/cart" element={<Cart />} />
-                  <Route path="/checkout" element={<Checkout />} />
-                  <Route path="/auth" element={<Auth />} />
+                  <Route path="/san-pham" element={<Products />} />
+                  <Route path="/san-pham/:id" element={<ProductDetail />} />
+                  <Route path="/gioi-thieu" element={<About />} />
+                  <Route path="/kien-thuc" element={<Blog />} />
+                  <Route path="/kien-thuc/:id" element={<BlogDetail />} />
+                  <Route path="/lien-he" element={<Contact />} />
+                  <Route path="/gio-hang" element={<Cart />} />
+                  <Route path="/thanh-toan" element={<Checkout />} />
+                  <Route path="/tai-khoan" element={<Auth />} />
                 </Routes>
               </PublicLayout>
             } />

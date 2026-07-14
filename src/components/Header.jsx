@@ -4,6 +4,7 @@ import { Search, ShoppingBag, Menu, X, MessageSquare, User, LogOut } from 'lucid
 import { useCart } from '../context/CartContext';
 import { useUserAuth } from '../context/UserAuthContext';
 import { API_BASE_URL } from '../config';
+import ConfirmModal from './ConfirmModal';
 
 const Header = ({ onSearch }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -11,6 +12,7 @@ const Header = ({ onSearch }) => {
   const [allProducts, setAllProducts] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const searchRef = useRef(null);
   
   const { cartCount } = useCart();
@@ -54,7 +56,7 @@ const Header = ({ onSearch }) => {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (searchValue.trim()) {
-      navigate(`/products?search=${encodeURIComponent(searchValue.trim())}`);
+      navigate(`/san-pham?search=${encodeURIComponent(searchValue.trim())}`);
       setIsMobileMenuOpen(false);
     }
     if (onSearch) {
@@ -88,10 +90,10 @@ const Header = ({ onSearch }) => {
 
   const navLinks = [
     { label: 'Trang chủ', href: '/' },
-    { label: 'Giới thiệu', href: '/about' },
-    { label: 'Sản phẩm', href: '/products' },
-    { label: 'Kiến thức trầm', href: '/blog' },
-    { label: 'Liên hệ', href: '/contact' },
+    { label: 'Giới thiệu', href: '/gioi-thieu' },
+    { label: 'Sản phẩm', href: '/san-pham' },
+    { label: 'Kiến thức trầm', href: '/kien-thuc' },
+    { label: 'Liên hệ', href: '/lien-he' },
   ];
 
   return (
@@ -154,7 +156,7 @@ const Header = ({ onSearch }) => {
                 {searchResults.map((product) => (
                   <div key={product._id} className="suggestion-item" 
                        onClick={() => {
-                         navigate(`/product/${product.slug || product._id}`);
+                         navigate(`/san-pham/${product.slug || product._id}`);
                          setShowSuggestions(false);
                          setSearchValue('');
                        }}
@@ -187,17 +189,14 @@ const Header = ({ onSearch }) => {
                 className="user-profile-menu"
                 style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', color: 'var(--color-gold-500)' }}
                 onClick={() => {
-                  if (window.confirm('Bạn có chắc muốn đăng xuất?')) {
-                    logout();
-                    navigate('/');
-                  }
+                  setShowLogoutConfirm(true);
                 }}
                 title={`Đăng xuất (${user.fullName})`}
               >
                 <LogOut size={20} />
               </div>
             ) : (
-              <button className="user-btn" aria-label="Đăng nhập" onClick={() => navigate('/auth')} style={{ background: 'none', border: 'none', color: 'var(--text-color)', cursor: 'pointer', padding: '5px' }}>
+              <button className="user-btn" aria-label="Đăng nhập" onClick={() => navigate('/tai-khoan')} style={{ background: 'none', border: 'none', color: 'var(--text-color)', cursor: 'pointer', padding: '5px' }}>
                 <User size={20} />
               </button>
             )}
@@ -205,7 +204,7 @@ const Header = ({ onSearch }) => {
 
           {/* Cart Icon */}
           <div className="cart-icon-wrapper" style={{ marginLeft: '15px' }}>
-            <button className="cart-btn" aria-label="Giỏ hàng" onClick={() => navigate('/cart')}>
+            <button className="cart-btn" aria-label="Giỏ hàng" onClick={() => navigate('/gio-hang')}>
               <ShoppingBag size={20} />
               {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
             </button>
@@ -262,18 +261,14 @@ const Header = ({ onSearch }) => {
           {/* Mobile User Auth */}
           {user ? (
             <div className="mobile-nav-link" style={{ color: 'var(--color-gold-500)', cursor: 'pointer' }} onClick={() => {
-              if (window.confirm('Bạn có chắc muốn đăng xuất?')) {
-                logout();
-                navigate('/');
-                setIsMobileMenuOpen(false);
-              }
+              setShowLogoutConfirm(true);
             }}>
               <LogOut size={18} style={{ marginRight: '8px', display: 'inline-block', verticalAlign: 'middle' }} />
               Đăng xuất ({user.fullName})
             </div>
           ) : (
             <Link
-              to="/auth"
+              to="/tai-khoan"
               className="mobile-nav-link"
               onClick={() => setIsMobileMenuOpen(false)}
             >
@@ -316,7 +311,7 @@ const Header = ({ onSearch }) => {
                 {searchResults.map((product) => (
                   <div key={product._id} className="suggestion-item" 
                        onClick={() => {
-                         navigate(`/product/${product.slug || product._id}`);
+                         navigate(`/san-pham/${product.slug || product._id}`);
                          setShowSuggestions(false);
                          setSearchValue('');
                          setIsMobileMenuOpen(false);
@@ -352,6 +347,20 @@ const Header = ({ onSearch }) => {
           </a>
         </nav>
       </div>
+
+      {/* Logout Confirm Modal */}
+      <ConfirmModal
+        isOpen={showLogoutConfirm}
+        title="Đăng xuất"
+        message="Bạn có chắc chắn muốn đăng xuất không?"
+        onConfirm={() => {
+          logout();
+          navigate('/');
+          setShowLogoutConfirm(false);
+          setIsMobileMenuOpen(false);
+        }}
+        onCancel={() => setShowLogoutConfirm(false)}
+      />
     </header>
   );
 };

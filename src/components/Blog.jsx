@@ -98,7 +98,7 @@ const Blog = () => {
               <article 
                 key={post._id} 
                 className={`blog-card gold-border reveal reveal-up delay-${(index + 1) * 150}`}
-                onClick={() => navigate(`/blog/${post.slug || post._id}`)}
+                onClick={() => navigate(`/kien-thuc/${post.slug || post._id}`)}
                 style={{ cursor: 'pointer' }}
               >
                 {/* Image/Visual wrapper */}

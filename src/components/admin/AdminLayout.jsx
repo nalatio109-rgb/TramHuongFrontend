@@ -14,12 +14,12 @@ const AdminLayout = () => {
   }
 
   if (!token || !user || user.role !== 'admin') {
-    return <Navigate to="/auth" replace />;
+    return <Navigate to="/tai-khoan" replace />;
   }
 
   const handleLogout = () => {
     logout();
-    navigate('/auth');
+    navigate('/tai-khoan');
   };
 
   // Nếu người dùng vào thẳng /admin, điều hướng sang /admin/products
