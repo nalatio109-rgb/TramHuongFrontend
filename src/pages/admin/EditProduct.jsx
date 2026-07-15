@@ -1,9 +1,12 @@
 import { API_BASE_URL } from '../../config';
-import React, { useState } from 'react';
-import { Plus, Trash2, Save, Upload, Link as LinkIcon, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Plus, Trash2, Save, Upload, Link as LinkIcon, X, ArrowLeft } from 'lucide-react';
 import './AddProduct.css';
 
-function AddProduct() {
+function EditProduct() {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     slug: '',
@@ -25,7 +28,43 @@ function AddProduct() {
   ]);
   
   const [loading, setLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
   const [message, setMessage] = useState(null);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/products/${id}`);
+        const data = await response.json();
+        
+        if (data.success) {
+          const product = data.data;
+          setFormData({
+            name: product.name || '',
+            slug: product.slug || '',
+            price: product.price || '',
+            priceDisplay: product.priceDisplay || '',
+            category: product.category || 'Phong Thuỷ',
+            description: product.description || '',
+            images: product.images || (product.image ? [product.image] : []),
+            shopeeUrl: product.shopeeUrl || '',
+            isBestSeller: product.isBestSeller || false,
+            isActive: product.isActive !== false,
+          });
+          if (product.specifications && product.specifications.length > 0) {
+            setSpecifications(product.specifications);
+          }
+        } else {
+          setMessage({ type: 'error', text: 'Không tìm thấy sản phẩm' });
+        }
+      } catch (error) {
+        setMessage({ type: 'error', text: 'Lỗi kết nối' });
+      } finally {
+        setInitialLoading(false);
+      }
+    };
+    fetchProduct();
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -126,8 +165,8 @@ function AddProduct() {
 
     try {
       const token = localStorage.getItem('userToken');
-      const response = await fetch(`${API_BASE_URL}/api/products`, {
-        method: 'POST',
+      const response = await fetch(`${API_BASE_URL}/api/products/${id}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -138,20 +177,12 @@ function AddProduct() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Lỗi khi thêm sản phẩm');
+        throw new Error(data.message || 'Lỗi khi cập nhật sản phẩm');
       }
 
-      setMessage({ type: 'success', text: 'Thêm sản phẩm thành công!' });
+      setMessage({ type: 'success', text: 'Cập nhật sản phẩm thành công!' });
       
-      // Reset form
-      setFormData({
-        name: '', slug: '', price: '', priceDisplay: '',
-        category: 'Phong Thuỷ', description: '', images: [],
-        shopeeUrl: 'https://shopee.vn/voquangrin1992',
-        isBestSeller: false, isActive: true
-      });
-      setSpecifications([{ name: 'Chất liệu', value: 'Trầm hương tự nhiên' }]);
-      
+      setTimeout(() => navigate('/admin/products'), 1500);
     } catch (err) {
       setMessage({ type: 'error', text: err.message });
     } finally {
@@ -162,8 +193,15 @@ function AddProduct() {
   return (
     <div className="add-product-container">
       <div className="admin-page-header">
-        <h1>Thêm Sản Phẩm Mới</h1>
-        <p>Điền thông tin chi tiết để thêm sản phẩm vào hệ thống</p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <button type="button" onClick={() => navigate('/admin/products')} className="btn-icon">
+            <ArrowLeft size={20} />
+          </button>
+          <div>
+            <h1>Sửa Sản Phẩm</h1>
+            <p>Cập nhật thông tin và hình ảnh sản phẩm</p>
+          </div>
+        </div>
       </div>
 
       {message && (
@@ -172,6 +210,9 @@ function AddProduct() {
         </div>
       )}
 
+      {initialLoading ? (
+        <div style={{ padding: '2rem', textAlign: 'center' }}>Đang tải dữ liệu...</div>
+      ) : (
       <form onSubmit={handleSubmit} className="add-product-form">
         <div className="form-grid">
           {/* Cột trái */}
@@ -315,12 +356,13 @@ function AddProduct() {
         <div className="form-actions">
           <button type="submit" className="btn-submit" disabled={loading || uploadingImages}>
             <Save size={20} />
-            {loading ? 'Đang lưu...' : 'Lưu Sản Phẩm'}
+            {loading ? 'Đang lưu...' : 'Lưu Thay Đổi'}
           </button>
         </div>
       </form>
+      )}
     </div>
   );
 }
 
-export default AddProduct;
+export default EditProduct;

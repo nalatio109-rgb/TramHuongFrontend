@@ -1,9 +1,11 @@
 import { API_BASE_URL } from '../../config';
 import React, { useState, useEffect } from 'react';
-import { Trash2 } from 'lucide-react';
+import { Trash2, Edit } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import './AdminProducts.css';
 
 const AdminProducts = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -112,6 +114,14 @@ const AdminProducts = () => {
                   </td>
                   <td>
                     <div className="action-buttons">
+                      <button 
+                        className="btn-icon edit" 
+                        onClick={() => navigate(`/admin/edit-product/${product._id}`)}
+                        title="Sửa"
+                        style={{ marginRight: '8px' }}
+                      >
+                        <Edit size={18} />
+                      </button>
                       <button 
                         className="btn-icon delete" 
                         onClick={() => handleDelete(product._id)}

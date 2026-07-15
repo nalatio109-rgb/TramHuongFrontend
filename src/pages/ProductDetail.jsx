@@ -86,7 +86,7 @@ const ProductDetail = () => {
             {galleryImages.map((img, index) => (
               <div 
                 key={index} 
-                className={`gallery-thumbnail ${activeImage === img && index === 0 ? 'active' : ''}`}
+                className={`gallery-thumbnail ${activeImage === img ? 'active' : ''}`}
                 onClick={() => setActiveImage(img)}
               >
                 <img src={img} alt={`Thumbnail ${index + 1}`} />

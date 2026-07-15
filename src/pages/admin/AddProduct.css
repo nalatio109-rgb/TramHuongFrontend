@@ -437,6 +437,47 @@
   text-transform: uppercase;
 }
 
+.add-more-box {
+  border: 1px dashed #d4af37;
+  background-color: #faf9f7;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-more-box:hover {
+  background-color: #fdfaf3;
+  border-color: #b8860b;
+}
+
+.add-more-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  color: #a89f91;
+  font-size: 0.8rem;
+  font-weight: 500;
+  gap: 0.5rem;
+}
+
+.add-more-label input[type=file] {
+  display: none;
+}
+
+.add-more-label:hover {
+  color: #d4af37;
+}
+
+.add-more-label:hover svg {
+  stroke: #d4af37;
+}
+
 @media (max-width: 1024px) {
   .form-grid {
     grid-template-columns: 1fr;

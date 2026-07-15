@@ -9,6 +9,7 @@ import BlogDetail from './pages/BlogDetail';
 import Contact from './pages/Contact';
 import AdminLayout from './components/admin/AdminLayout';
 import AddProduct from './pages/admin/AddProduct';
+import EditProduct from './pages/admin/EditProduct';
 import AdminProducts from './pages/admin/AdminProducts';
 import AdminOrders from './pages/admin/AdminOrders';
 import AdminBlogs from './pages/admin/AdminBlogs';
@@ -79,6 +80,7 @@ function App() {
             <Route path="/admin" element={<AdminLayout />}>
               <Route path="products" element={<AdminProducts />} />
               <Route path="add-product" element={<AddProduct />} />
+              <Route path="edit-product/:id" element={<EditProduct />} />
               <Route path="orders" element={<AdminOrders />} />
               <Route path="blogs" element={<AdminBlogs />} />
               <Route path="add-blog" element={<AddBlog />} />
