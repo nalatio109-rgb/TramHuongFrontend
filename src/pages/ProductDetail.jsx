@@ -11,19 +11,28 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [activeImage, setActiveImage] = useState('');
+  const [selectedVariant, setSelectedVariant] = useState(null);
   const { addToCart, triggerCartAnimation } = useCart();
   const navigate = useNavigate();
 
   const handleAddToCart = (e) => {
     if (product) {
-      addToCart(product, 1);
+      if (product.hasVariants && !selectedVariant) {
+        alert('Vui lòng chọn Kích thước (Size) trước khi thêm vào giỏ hàng.');
+        return;
+      }
+      addToCart(product, 1, selectedVariant);
       triggerCartAnimation(e, activeImage || product.image || '/images/vong_tay.png');
     }
   };
 
   const handleBuyNow = () => {
     if (product) {
-      addToCart(product, 1);
+      if (product.hasVariants && !selectedVariant) {
+        alert('Vui lòng chọn Kích thước (Size) trước khi mua.');
+        return;
+      }
+      addToCart(product, 1, selectedVariant);
       navigate('/thanh-toan');
     }
   };
@@ -127,10 +136,25 @@ const ProductDetail = () => {
           </div>
 
           <div className="product-detail-price">
-            {product.priceDisplay}
+            {selectedVariant ? selectedVariant.priceDisplay : product.priceDisplay}
           </div>
 
-
+          {product.hasVariants && product.variants && product.variants.length > 0 && (
+            <div className="product-variants-section">
+              <h3 className="variants-title">Kích thước (Size)</h3>
+              <div className="variants-options">
+                {product.variants.map((variant, index) => (
+                  <button
+                    key={index}
+                    className={`variant-btn ${selectedVariant?.size === variant.size ? 'selected' : ''}`}
+                    onClick={() => setSelectedVariant(variant)}
+                  >
+                    {variant.size}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="product-detail-actions">
             <button 

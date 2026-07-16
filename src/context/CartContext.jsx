@@ -24,30 +24,36 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem('tramhuong_cart', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addToCart = (product, quantity = 1) => {
+  const addToCart = (product, quantity = 1, variant = null) => {
     setCartItems(prev => {
-      const existingItemIndex = prev.findIndex(item => item._id === product._id);
+      const cartItemId = variant ? `${product._id}_${variant.size}` : product._id;
+      const existingItemIndex = prev.findIndex(item => item.cartItemId === cartItemId || (!item.cartItemId && item._id === cartItemId));
+      
       if (existingItemIndex >= 0) {
-        // Tăng số lượng nếu đã có trong giỏ
         const newCart = [...prev];
         newCart[existingItemIndex].quantity += quantity;
         return newCart;
       } else {
-        // Thêm mới
-        return [...prev, { ...product, quantity }];
+        return [...prev, { 
+          ...product, 
+          cartItemId, 
+          quantity, 
+          selectedVariant: variant,
+          price: variant ? variant.price : product.price
+        }];
       }
     });
   };
 
-  const removeFromCart = (productId) => {
-    setCartItems(prev => prev.filter(item => item._id !== productId));
+  const removeFromCart = (cartItemId) => {
+    setCartItems(prev => prev.filter(item => (item.cartItemId || item._id) !== cartItemId));
   };
 
-  const updateQuantity = (productId, newQuantity) => {
+  const updateQuantity = (cartItemId, newQuantity) => {
     if (newQuantity < 1) return;
     setCartItems(prev => 
       prev.map(item => 
-        item._id === productId ? { ...item, quantity: newQuantity } : item
+        (item.cartItemId || item._id) === cartItemId ? { ...item, quantity: newQuantity } : item
       )
     );
   };

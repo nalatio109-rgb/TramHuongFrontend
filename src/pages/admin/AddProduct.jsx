@@ -15,6 +15,10 @@ function AddProduct() {
     shopeeUrl: 'https://shopee.vn/voquangrin1992',
     isBestSeller: false,
     isActive: true,
+    hasVariants: false,
+    variants: [
+      { size: '', price: '', priceDisplay: '' }
+    ],
   });
 
   const [imageUrlInput, setImageUrlInput] = useState('');
@@ -60,6 +64,26 @@ function AddProduct() {
 
   const removeSpec = (index) => {
     setSpecifications(specifications.filter((_, i) => i !== index));
+  };
+
+  const handleVariantChange = (index, field, value) => {
+    const newVariants = [...formData.variants];
+    newVariants[index][field] = value;
+    setFormData(prev => ({ ...prev, variants: newVariants }));
+  };
+
+  const addVariant = () => {
+    setFormData(prev => ({
+      ...prev,
+      variants: [...prev.variants, { size: '', price: '', priceDisplay: '' }]
+    }));
+  };
+
+  const removeVariant = (index) => {
+    setFormData(prev => ({
+      ...prev,
+      variants: prev.variants.filter((_, i) => i !== index)
+    }));
   };
 
   // Image Handlers
@@ -118,9 +142,35 @@ function AddProduct() {
     setLoading(true);
     setMessage(null);
 
+    let finalPrice = Number(formData.price);
+    let finalPriceDisplay = formData.priceDisplay;
+    let validVariants = [];
+
+    if (formData.hasVariants) {
+      validVariants = formData.variants.filter(v => v.size.trim() !== '' && v.price !== '' && v.priceDisplay.trim() !== '');
+      if (validVariants.length > 0) {
+        // Calculate main price from the minimum price variant
+        const prices = validVariants.map(v => Number(v.price));
+        finalPrice = Math.min(...prices);
+        const maxPrice = Math.max(...prices);
+        
+        // Find priceDisplays for min and max
+        const minVariant = validVariants.find(v => Number(v.price) === finalPrice);
+        const maxVariant = validVariants.find(v => Number(v.price) === maxPrice);
+        
+        if (finalPrice === maxPrice) {
+          finalPriceDisplay = minVariant.priceDisplay;
+        } else {
+          finalPriceDisplay = `${minVariant.priceDisplay} - ${maxVariant.priceDisplay}`;
+        }
+      }
+    }
+
     const productData = {
       ...formData,
-      price: Number(formData.price),
+      price: finalPrice,
+      priceDisplay: finalPriceDisplay,
+      variants: validVariants.map(v => ({ ...v, price: Number(v.price) })),
       specifications: specifications.filter(s => s.name.trim() !== '' && s.value.trim() !== '')
     };
 
@@ -148,7 +198,8 @@ function AddProduct() {
         name: '', slug: '', price: '', priceDisplay: '',
         category: 'Phong Thuỷ', description: '', images: [],
         shopeeUrl: 'https://shopee.vn/voquangrin1992',
-        isBestSeller: false, isActive: true
+        isBestSeller: false, isActive: true, hasVariants: false,
+        variants: [{ size: '', price: '', priceDisplay: '' }]
       });
       setSpecifications([{ name: 'Chất liệu', value: 'Trầm hương tự nhiên' }]);
       
@@ -189,16 +240,63 @@ function AddProduct() {
                 <input type="text" name="slug" value={formData.slug} onChange={handleChange} required />
               </div>
 
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Giá (VNĐ) *</label>
-                  <input type="number" name="price" value={formData.price} onChange={handleChange} required min="0" />
-                </div>
-                <div className="form-group">
-                  <label>Giá hiển thị (VD: 1.200.000đ) *</label>
-                  <input type="text" name="priceDisplay" value={formData.priceDisplay} onChange={handleChange} required />
-                </div>
+              <div className="checkbox-group" style={{ marginBottom: '1rem', marginTop: '1rem' }}>
+                <label className="checkbox-label">
+                  <input type="checkbox" name="hasVariants" checked={formData.hasVariants} onChange={handleChange} />
+                  Sản phẩm có nhiều phân loại (Kích thước / Size)
+                </label>
               </div>
+
+              {!formData.hasVariants ? (
+                <div className="form-row">
+                  <div className="form-group">
+                    <label>Giá (VNĐ) *</label>
+                  <input type="number" name="price" value={formData.price} onChange={handleChange} required min="0" placeholder="VD: 60000 (không ghi dấu chấm)" />
+                </div>
+                <div className="form-group">
+                    <label>Giá hiển thị (VD: 1.200.000đ) *</label>
+                    <input type="text" name="priceDisplay" value={formData.priceDisplay} onChange={handleChange} required />
+                  </div>
+                </div>
+              ) : (
+                <div className="variants-section">
+                  <div className="spec-header" style={{ marginBottom: '0.5rem' }}>
+                    <label style={{ margin: 0 }}>Các phân loại kích thước *</label>
+                    <button type="button" onClick={addVariant} className="btn-add-spec" style={{ padding: '0.2rem 0.5rem', fontSize: '0.8rem' }}>
+                      <Plus size={14} /> Thêm Size
+                    </button>
+                  </div>
+                  {formData.variants.map((variant, index) => (
+                    <div key={index} className="spec-row variant-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr auto', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                      <input 
+                        type="text" 
+                        placeholder="Size (VD: 6)" 
+                        value={variant.size} 
+                        onChange={(e) => handleVariantChange(index, 'size', e.target.value)}
+                        required
+                      />
+                      <input 
+                        type="number" 
+                        placeholder="Giá gốc (VD: 60000)" 
+                        value={variant.price} 
+                        onChange={(e) => handleVariantChange(index, 'price', e.target.value)}
+                        required min="0"
+                      />
+                      <input 
+                        type="text" 
+                        placeholder="Giá hiển thị" 
+                        value={variant.priceDisplay} 
+                        onChange={(e) => handleVariantChange(index, 'priceDisplay', e.target.value)}
+                        required
+                      />
+                      <button type="button" onClick={() => removeVariant(index)} className="btn-remove-spec" disabled={formData.variants.length === 1}>
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
+                  ))}
+                  <p style={{ fontSize: '0.8rem', color: '#666', marginTop: '0.5rem' }}>*Giá hiển thị của sản phẩm sẽ tự động lấy từ thấp nhất đến cao nhất của các phân loại này.</p>
+                </div>
+              )}
 
               <div className="form-group">
                 <label>Danh mục *</label>

@@ -53,7 +53,7 @@ function Cart() {
           {/* Cột Danh sách sản phẩm */}
           <div className="cart-items-list reveal reveal-left delay-100">
             {cartItems.map((item) => (
-              <div key={item._id} className="cart-item gold-border">
+              <div key={item.cartItemId || item._id} className="cart-item gold-border">
                 <img 
                   src={item.image || '/images/vong_tay.png'} 
                   alt={item.name} 
@@ -66,20 +66,20 @@ function Cart() {
                     className="cart-item-name"
                     onClick={() => navigate(`/san-pham/${item.slug || item._id}`)}
                   >
-                    {item.name}
+                    {item.name} {item.selectedVariant && `- Size: ${item.selectedVariant.size}`}
                   </h3>
                   <p className="cart-item-price">{formatPrice(item.price)}</p>
                   
                   <div className="cart-item-actions">
                     <div className="quantity-controls">
-                      <button onClick={() => handleQuantityChange(item._id, item.quantity, -1)}><Minus size={16} /></button>
+                      <button onClick={() => handleQuantityChange(item.cartItemId || item._id, item.quantity, -1)}><Minus size={16} /></button>
                       <span>{item.quantity}</span>
-                      <button onClick={() => handleQuantityChange(item._id, item.quantity, 1)}><Plus size={16} /></button>
+                      <button onClick={() => handleQuantityChange(item.cartItemId || item._id, item.quantity, 1)}><Plus size={16} /></button>
                     </div>
                     
                     <button 
                       className="remove-btn"
-                      onClick={() => removeFromCart(item._id)}
+                      onClick={() => removeFromCart(item.cartItemId || item._id)}
                       title="Xóa sản phẩm"
                     >
                       <Trash2 size={20} />

@@ -46,10 +46,11 @@ function Checkout() {
         totalAmount: cartTotal,
         items: cartItems.map(item => ({
           productId: item._id,
-          name: item.name,
+          name: item.selectedVariant ? `${item.name} - Size: ${item.selectedVariant.size}` : item.name,
           price: item.price,
           quantity: item.quantity,
-          image: item.image
+          image: item.image,
+          variantSize: item.selectedVariant ? item.selectedVariant.size : null
         }))
       };
 
@@ -228,13 +229,13 @@ function Checkout() {
               
               <div className="checkout-items">
                 {cartItems.map(item => (
-                  <div key={item._id} className="checkout-item">
+                  <div key={item.cartItemId || item._id} className="checkout-item">
                     <div className="checkout-item-img-wrapper">
                       <img src={item.image || '/images/vong_tay.png'} alt={item.name} />
                       <span className="checkout-item-qty">{item.quantity}</span>
                     </div>
                     <div className="checkout-item-info">
-                      <p className="checkout-item-name">{item.name}</p>
+                      <p className="checkout-item-name">{item.name} {item.selectedVariant && `- Size: ${item.selectedVariant.size}`}</p>
                       <p className="checkout-item-price">{formatPrice(item.price)}</p>
                     </div>
                     <div className="checkout-item-total">
