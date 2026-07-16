@@ -49,13 +49,13 @@
   border: 1px solid rgba(223, 186, 115, 0.2);
 }
 
-.admin-table {
+.admin-contacts .admin-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
 }
 
-.admin-table th {
+.admin-contacts .admin-table th {
   padding: 1rem;
   background: rgba(0, 0, 0, 0.2);
   color: var(--color-gold-300);
@@ -64,20 +64,20 @@
   white-space: nowrap;
 }
 
-.admin-table td {
+.admin-contacts .admin-table td {
   padding: 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   vertical-align: top;
   color: #e5e5e5; /* Lighter text for cells */
 }
 
-.admin-table td strong {
+.admin-contacts .admin-table td strong {
   color: #fff;
   font-weight: 600;
   font-size: 1.05rem;
 }
 
-.admin-table tr:hover {
+.admin-contacts .admin-table tr:hover {
   background-color: rgba(223, 186, 115, 0.1) !important;
 }
 

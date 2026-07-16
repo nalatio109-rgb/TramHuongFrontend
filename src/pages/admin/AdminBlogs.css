@@ -25,3 +25,38 @@
   background-color: #4CAF50;
   color: white;
 }
+
+/* Explicit table styles for AdminBlogs to avoid inheriting dark mode text colors */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.admin-table th {
+  background-color: #faf9f7;
+  color: #5c4e43;
+  font-weight: 600;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 2px solid #eadece;
+  white-space: nowrap;
+}
+
+.admin-table td {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #f0ebe1;
+  color: #3b2f28;
+  vertical-align: middle;
+}
+
+.admin-table tbody tr:hover {
+  background-color: #fcfcfc;
+}
+
+.table-container {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(139, 115, 85, 0.08);
+  border: 1px solid #f0ebe1;
+  overflow-x: auto;
+}
