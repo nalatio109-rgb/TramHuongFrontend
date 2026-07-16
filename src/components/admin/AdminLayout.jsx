@@ -1,13 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, Navigate, NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { PlusCircle, LogOut, Package, List, ShoppingBag, FileText, Edit3 } from 'lucide-react';
+import { PlusCircle, LogOut, Package, List, ShoppingBag, FileText, Edit3, MessageSquare } from 'lucide-react';
 import { useUserAuth } from '../../context/UserAuthContext';
+import { API_BASE_URL } from '../../config';
 import './AdminLayout.css';
 
 const AdminLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, token, logout, loading } = useUserAuth();
+  const [unreadContacts, setUnreadContacts] = useState(0);
+
+  useEffect(() => {
+    const fetchUnreadCount = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/contact?limit=1`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (data.success) {
+          setUnreadContacts(data.unreadCount || 0);
+        }
+      } catch (error) {
+        console.error('Lỗi lấy số tin nhắn chưa đọc:', error);
+      }
+    };
+
+    if (token && user?.role === 'admin') {
+      fetchUnreadCount();
+      // Polling every 60s
+      const interval = setInterval(fetchUnreadCount, 60000);
+      return () => clearInterval(interval);
+    }
+  }, [token, user]);
 
   if (loading) {
     return <div>Đang kiểm tra quyền truy cập...</div>;
@@ -70,6 +95,19 @@ const AdminLayout = () => {
           >
             <Edit3 size={20} />
             Thêm bài viết
+          </NavLink>
+          <NavLink 
+            to="/admin/contacts" 
+            className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`}
+            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+              <MessageSquare size={20} />
+              Tin nhắn liên hệ
+            </div>
+            {unreadContacts > 0 && (
+              <span className="admin-badge">{unreadContacts}</span>
+            )}
           </NavLink>
           <NavLink 
             to="/" 

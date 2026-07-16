@@ -130,22 +130,7 @@ const ProductDetail = () => {
             {product.priceDisplay}
           </div>
 
-          <p className="product-detail-description">
-            {product.description}
-          </p>
 
-          {product.specifications && product.specifications.length > 0 && (
-            <div className="product-detail-specs-card">
-              <ul className="spec-list">
-                {product.specifications.map((spec, index) => (
-                  <li key={index}>
-                    <span className="spec-name">{spec.name}</span>
-                    <span className="spec-value">{spec.value}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
 
           <div className="product-detail-actions">
             <button 
@@ -167,6 +152,88 @@ const ProductDetail = () => {
           </div>
         </div>
         
+      </div>
+
+      {/* Bottom Section: Description & Specs */}
+      <div className="product-detail-bottom">
+        <div className="product-detail-description">
+          {product.description && (() => {
+            const text = product.description;
+            const blocks = text.split(/(XIN CAM KẾT|THÔNG TIN SẢN PHẨM|SHOP CAM KẾT)/g).filter(Boolean);
+            
+            let currentHeader = '';
+            const sections = [];
+            
+            blocks.forEach(block => {
+              if (['XIN CAM KẾT', 'THÔNG TIN SẢN PHẨM', 'SHOP CAM KẾT'].includes(block.trim())) {
+                currentHeader = block.trim();
+              } else {
+                sections.push({
+                  header: currentHeader,
+                  content: block.trim()
+                });
+                currentHeader = ''; 
+              }
+            });
+
+            return sections.map((section, idx) => {
+              const parts = section.content.split(/(?=\s[–-]\s|\s[–-](?!\s))/).filter(p => p.trim());
+              
+              return (
+                <div key={idx} className="description-section">
+                  {section.header && (
+                    <h4 className="description-section-title">
+                      <Star size={16} className="title-icon" />
+                      {section.header}
+                    </h4>
+                  )}
+                  <ul className="description-list">
+                    {parts.map((part, j) => {
+                      let cleanText = part.trim();
+                      if (cleanText.startsWith('-') || cleanText.startsWith('–')) {
+                        cleanText = cleanText.substring(1).trim();
+                      }
+                      if (!cleanText) return null;
+                      
+                      return (
+                        <li key={j}>
+                          <ChevronRight size={14} className="list-icon" />
+                          <span>{cleanText}</span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              );
+            });
+          })()}
+        </div>
+
+        {product.specifications && product.specifications.length > 0 && (
+          <div className="product-detail-specs-card">
+            <h3 className="specs-title">Thông Số Kỹ Thuật</h3>
+            <ul className="spec-list">
+              {product.specifications.map((spec, index) => (
+                <li key={index}>
+                  <span className="spec-name">{spec.name}</span>
+                  <span className="spec-value">{spec.value}</span>
+                </li>
+              ))}
+            </ul>
+            
+            <div className="shopee-button-container">
+              <a 
+                href={product.shopeeUrl || "https://shopee.vn/"} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="btn-shopee"
+              >
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Shopee.svg" alt="Shopee" className="shopee-icon" onError={(e) => e.target.style.display='none'} />
+                <span>Mua trên Shopee</span>
+              </a>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

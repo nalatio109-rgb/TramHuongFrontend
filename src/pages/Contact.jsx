@@ -2,21 +2,43 @@ import React, { useState } from 'react';
 import { MapPin, Phone, Mail, MessageSquare, Clock, Send } from 'lucide-react';
 import './Contact.css';
 
+import { API_BASE_URL } from '../config';
+
 function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong thời gian sớm nhất.');
-    setFormData({ name: '', phone: '', message: '' });
+    setIsSubmitting(true);
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+      const data = await response.json();
+      if (data.success) {
+        alert(data.message || 'Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong thời gian sớm nhất.');
+        setFormData({ name: '', phone: '', message: '' });
+      } else {
+        alert(data.message || 'Gửi tin nhắn thất bại, vui lòng thử lại.');
+      }
+    } catch (error) {
+      alert('Đã xảy ra lỗi hệ thống, vui lòng thử lại sau.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -124,8 +146,8 @@ function Contact() {
                   placeholder="Bạn quan tâm đến vòng tay, nhang trầm hay cần tư vấn phong thủy?"
                 ></textarea>
               </div>
-              <button type="submit" className="btn-gold submit-btn">
-                <Send size={18} /> Gửi Tin Nhắn
+              <button type="submit" className="btn-gold submit-btn" disabled={isSubmitting}>
+                <Send size={18} /> {isSubmitting ? 'Đang gửi...' : 'Gửi Tin Nhắn'}
               </button>
             </form>
           </div>

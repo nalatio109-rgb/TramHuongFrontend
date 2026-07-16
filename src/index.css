@@ -630,6 +630,66 @@ button {
   color: var(--text-primary);
 }
 
+/* Mobile Nav Drawer items */
+.mobile-nav-drawer {
+  padding-bottom: 5rem;
+  overflow-y: auto;
+}
+
+/* ==========================================================================
+   GLOBAL MOBILE POLISH (CHỈNH CHU GIAO DIỆN ĐIỆN THOẠI)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Giảm khoảng cách các section để không bị trống trải trên mobile */
+  .section-padding {
+    padding: 4rem 0 !important;
+  }
+  
+  /* Giảm kích thước tiêu đề để vừa vặn màn hình nhỏ */
+  .section-title {
+    font-size: 1.6rem !important;
+  }
+  
+  .section-subtitle {
+    font-size: 0.7rem !important;
+    letter-spacing: 0.15em !important;
+  }
+  
+  h1 { font-size: 1.8rem !important; }
+  h2 { font-size: 1.5rem !important; }
+  
+  /* Nút bấm trên mobile gọn hơn */
+  .btn-gold, .btn-outline {
+    padding: 0.7rem 1.5rem !important;
+    font-size: 0.8rem !important;
+    width: 100%; /* Nút trải dài trên mobile cho dễ bấm */
+    text-align: center;
+  }
+  
+  /* Divider gọn lại */
+  .zen-divider::before,
+  .zen-divider::after {
+    width: 40px !important;
+  }
+  
+  /* Padding container */
+  .container {
+    padding: 0 1rem !important;
+  }
+  
+  /* Chỉnh Hero Banner vừa màn hình mobile */
+  .hero-section {
+    padding-top: calc(var(--header-height) - 20px);
+    height: 85vh; /* Giảm chiều cao hero trên mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1.4rem !important;
+  }
+}
+
 /* Mobile Nav Drawer */
 .mobile-nav-drawer {
   position: fixed;
@@ -1025,8 +1085,8 @@ button {
 
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2.2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
 }
 
 @media (max-width: 768px) {
@@ -1130,14 +1190,14 @@ button {
 
 /* Card Info */
 .product-info {
-  padding: 1.5rem;
+  padding: 1.2rem;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
 .product-name {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 600;
   line-height: 1.35;
   margin-bottom: 0.5rem;
@@ -1175,7 +1235,7 @@ button {
 }
 
 .product-price {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: var(--color-gold-300);
   font-family: var(--font-sans);

@@ -28,7 +28,7 @@ const BestSellers = ({ onViewDetail }) => {
   }, []);
 
   const renderProductCards = (isDuplicate = false) => {
-    return bestSellersList.map((product) => {
+    return bestSellersList.slice(0, 6).map((product) => {
       const uniqueId = isDuplicate ? `${product._id}-dup` : product._id;
       return (
         <div key={uniqueId} className="slider-item-card gold-border">
@@ -131,6 +131,33 @@ const BestSellers = ({ onViewDetail }) => {
               {renderProductCards(true)}
             </div>
           </div>
+        </div>
+
+        {/* Nút Xem Thêm */}
+        <div className="view-more-container reveal reveal-up delay-300" style={{ textAlign: 'center', marginTop: '3rem' }}>
+          <Link 
+            to="/san-pham" 
+            style={{ 
+              display: 'inline-flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              padding: '0.8rem 2.5rem', 
+              border: '1px solid #d4af37', 
+              color: '#d4af37', 
+              background: 'transparent',
+              textTransform: 'uppercase',
+              letterSpacing: '2px',
+              fontWeight: '500',
+              fontSize: '0.9rem',
+              textDecoration: 'none',
+              transition: 'all 0.3s ease',
+              borderRadius: '2px'
+            }}
+            onMouseOver={(e) => { e.currentTarget.style.background = 'rgba(212, 175, 55, 0.1)'; }}
+            onMouseOut={(e) => { e.currentTarget.style.background = 'transparent'; }}
+          >
+            XEM THÊM SẢN PHẨM
+          </Link>
         </div>
       </div>
     </section>

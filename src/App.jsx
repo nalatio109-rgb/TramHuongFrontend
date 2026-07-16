@@ -15,6 +15,7 @@ import AdminOrders from './pages/admin/AdminOrders';
 import AdminBlogs from './pages/admin/AdminBlogs';
 import AddBlog from './pages/admin/AddBlog';
 import EditBlog from './pages/admin/EditBlog';
+import AdminContacts from './pages/admin/AdminContacts';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
@@ -85,6 +86,7 @@ function App() {
               <Route path="blogs" element={<AdminBlogs />} />
               <Route path="add-blog" element={<AddBlog />} />
               <Route path="edit-blog/:id" element={<EditBlog />} />
+              <Route path="contacts" element={<AdminContacts />} />
             </Route>
 
             {/* Các route dành cho người dùng (Public) */}
