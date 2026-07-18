@@ -4,7 +4,7 @@ import { Star, Eye, ShoppingCart, PlusCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
-const Categories = ({ searchQuery = '' }) => {
+const Categories = ({ searchQuery = '', isHome = false }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -80,7 +80,7 @@ const Categories = ({ searchQuery = '' }) => {
         {/* Catalog Grid */}
         {!loading && !error && filteredProducts.length > 0 && (
           <div className="products-grid">
-            {filteredProducts.map((product, index) => (
+            {(isHome ? filteredProducts.slice(0, 6) : filteredProducts).map((product, index) => (
               <div key={product._id} className={`product-card gold-border reveal reveal-up delay-${(index % 3 + 1) * 100}`}>
                 {/* Image Container */}
                 <div className="product-img-wrapper">
@@ -150,6 +150,15 @@ const Categories = ({ searchQuery = '' }) => {
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {/* View More Button */}
+        {isHome && !loading && !error && filteredProducts.length > 0 && (
+          <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+            <Link to="/san-pham" className="btn-primary" style={{ padding: '0.75rem 2.5rem', fontSize: '1.1rem', textDecoration: 'none' }}>
+              Xem Thêm Sản Phẩm
+            </Link>
           </div>
         )}
 

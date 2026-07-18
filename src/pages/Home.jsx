@@ -16,7 +16,7 @@ function Home() {
       <main>
         <Hero />
         <BrandValues />
-        <Categories />
+        <Categories isHome={true} />
         <BestSellers />
         <BrandStory />
         <Blog />
