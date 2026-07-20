@@ -180,7 +180,15 @@
 }
 
 .blog-html-content p {
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+  color: #d1d5db;
+}
+
+.blog-html-content strong {
+  color: #dfba73;
+  font-weight: 600;
+  letter-spacing: 0.3px;
 }
 
 /* Style the first letter like a drop cap for elegance */
@@ -188,17 +196,17 @@
   font-family: 'Outfit', serif;
   color: #dfba73;
   float: left;
-  font-size: 4.5rem;
-  line-height: 4rem;
-  padding-top: 4px;
+  font-size: 3.8rem;
+  line-height: 1;
+  padding-top: 8px;
   padding-right: 12px;
-  padding-left: 3px;
+  padding-left: 0;
 }
 
+.blog-html-content h2,
 .blog-html-content h3 {
   font-family: 'Outfit', sans-serif;
   color: #dfba73;
-  font-size: 1.8rem;
   margin: 3rem 0 1.5rem;
   font-weight: 600;
   border-bottom: 1px solid rgba(212, 175, 55, 0.2);
@@ -206,25 +214,42 @@
   display: inline-block;
 }
 
+.blog-html-content h2 {
+  font-size: 2.2rem;
+}
+
+.blog-html-content h3 {
+  font-size: 1.8rem;
+}
+
 .blog-html-content ul {
-  margin-bottom: 1.8rem;
-  padding-left: 1.5rem;
+  margin-bottom: 2rem;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 
 .blog-html-content li {
-  margin-bottom: 0.8rem;
+  margin-bottom: 0;
   position: relative;
   list-style-type: none;
+  padding-left: 2rem;
+}
+
+.blog-html-content li p {
+  margin-bottom: 0;
+  display: inline;
 }
 
 .blog-html-content li::before {
-  content: '•';
+  content: '✦';
   color: #dfba73;
   position: absolute;
-  left: -1.2rem;
-  font-size: 1.5rem;
-  line-height: 1;
+  left: 0;
   top: 2px;
+  font-size: 1.2rem;
+  line-height: 1.5;
 }
 
 .blog-html-content img {

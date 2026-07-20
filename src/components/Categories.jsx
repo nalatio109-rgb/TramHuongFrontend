@@ -8,6 +8,7 @@ const Categories = ({ searchQuery = '', isHome = false }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState('Tất cả');
   const { addToCart, triggerCartAnimation } = useCart();
 
   useEffect(() => {
@@ -39,14 +40,17 @@ const Categories = ({ searchQuery = '', isHome = false }) => {
               .toLowerCase();
   };
 
-  // Filter products based on search query
+  // Filter products based on search query and category
   const filteredProducts = products.filter((product) => {
     const query = removeAccents(searchQuery);
     const name = removeAccents(product.name || '');
     const desc = removeAccents(product.description || '');
-    const category = removeAccents(product.category || '');
+    const categorySearch = removeAccents(product.category || '');
 
-    return name.includes(query) || desc.includes(query) || category.includes(query);
+    const matchesSearch = name.includes(query) || desc.includes(query) || categorySearch.includes(query);
+    const matchesCategory = selectedCategory === 'Tất cả' || (product.category && product.category.toLowerCase() === selectedCategory.toLowerCase());
+
+    return matchesSearch && matchesCategory;
   });
 
   return (
@@ -74,6 +78,45 @@ const Categories = ({ searchQuery = '', isHome = false }) => {
         {error && (
           <div style={{ textAlign: 'center', padding: '3rem', color: '#ef4444' }}>
             Lỗi: {error}
+          </div>
+        )}
+
+        {/* Category Filters */}
+        {!loading && !error && (
+          <div className="category-filters reveal reveal-up" style={{ display: 'flex', gap: '1rem', marginBottom: '2.5rem', justifyContent: 'flex-start', flexWrap: 'wrap' }}>
+            {['Tất cả', 'Phong Thuỷ', 'Đồ dùng tôn giáo'].map(cat => (
+              <button 
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                style={{
+                  padding: '0.6rem 1.8rem',
+                  background: selectedCategory === cat ? 'rgba(212, 175, 55, 0.15)' : 'transparent',
+                  border: `1px solid ${selectedCategory === cat ? '#d4af37' : 'rgba(212, 175, 55, 0.3)'}`,
+                  color: selectedCategory === cat ? '#d4af37' : '#a1a1aa',
+                  borderRadius: '30px',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '0.95rem',
+                  fontWeight: selectedCategory === cat ? '600' : '500',
+                  letterSpacing: '0.5px'
+                }}
+                onMouseOver={(e) => {
+                  if (selectedCategory !== cat) {
+                    e.currentTarget.style.borderColor = '#d4af37';
+                    e.currentTarget.style.color = '#dfba73';
+                  }
+                }}
+                onMouseOut={(e) => {
+                  if (selectedCategory !== cat) {
+                    e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.3)';
+                    e.currentTarget.style.color = '#a1a1aa';
+                  }
+                }}
+              >
+                {cat}
+              </button>
+            ))}
           </div>
         )}
 

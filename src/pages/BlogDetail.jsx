@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Calendar, User, ArrowLeft, Clock, Share2 } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 import { API_BASE_URL } from '../config';
 import './BlogDetail.css';
 
@@ -127,7 +128,9 @@ const BlogDetail = () => {
               </div>
             )}
             
-            <div className="blog-html-content" dangerouslySetInnerHTML={{ __html: post.content }} />
+            <div className="blog-html-content">
+              <ReactMarkdown>{post.content}</ReactMarkdown>
+            </div>
             
             <div className="blog-footer-actions">
               <div className="share-buttons">
