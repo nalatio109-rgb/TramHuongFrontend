@@ -116,7 +116,7 @@ const Footer = () => {
       <div className="footer-bottom">
         <div className="container footer-bottom-content">
           <p>© {new Date().getFullYear()} VÕ QUANG RIN - TRẦM HƯƠNG TỰ NHIÊN. Tất cả các quyền được bảo lưu.</p>
-          <p className="credit-text">Thiết kế bởi Antigravity • Tiêu chuẩn Trang sức Cao cấp Á Đông</p>
+          <p className="credit-text">Thiết kế bởi <a href="https://latio.vn/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Latio</a> • Tiêu chuẩn Trang sức Cao cấp Á Đông</p>
         </div>
       </div>
     </footer>
