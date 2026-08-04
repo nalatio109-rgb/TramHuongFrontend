@@ -19,6 +19,19 @@ const BlogDetail = () => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showTagsWidget, setShowTagsWidget] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 400) {
+        setShowTagsWidget(true);
+      } else {
+        setShowTagsWidget(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -175,9 +188,9 @@ const BlogDetail = () => {
       </section>
 
       {/* Floating Keywords Widget (Desktop only) */}
-      <div className="blog-keywords-floating">
+      <div className={`blog-keywords-floating ${showTagsWidget ? 'visible' : ''}`}>
         <div className="keywords-floating-header">
-          <span className="keywords-title">Tags</span>
+          <span className="keywords-title">Tags</span>  
         </div>
         <div className="keywords-floating-divider"></div>
         <div className="keywords-list">
