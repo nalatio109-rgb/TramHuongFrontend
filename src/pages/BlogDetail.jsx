@@ -53,6 +53,35 @@ const BlogDetail = () => {
     fetchPost();
   }, [id]);
 
+  // Xử lý hiển thị chú thích hình ảnh (caption)
+  useEffect(() => {
+    if (post) {
+      const contentDiv = document.querySelector('.blog-html-content');
+      if (contentDiv) {
+        const images = contentDiv.querySelectorAll('img');
+        images.forEach(img => {
+          const altText = img.getAttribute('alt');
+          // Nếu có alt text và chưa được bọc trong figure
+          if (altText && img.parentNode.tagName !== 'FIGURE') {
+            const figure = document.createElement('figure');
+            figure.className = 'image-figure';
+            
+            // Thay thế img bằng figure, sau đó nhét img vào lại figure
+            img.parentNode.insertBefore(figure, img);
+            figure.appendChild(img);
+            
+            const caption = document.createElement('figcaption');
+            caption.className = 'image-caption';
+            caption.innerText = altText;
+            figure.appendChild(caption);
+          }
+        });
+      }
+    }
+  }, [post]);
+
+
+
   // Update SEO meta tags when post data is loaded
   useEffect(() => {
     if (post) {

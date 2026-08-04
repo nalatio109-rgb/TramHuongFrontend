@@ -6,6 +6,51 @@ import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import './AddBlog.css'; // Reusing AddBlog.css for layout
 
+const Quill = ReactQuill.Quill;
+const BlockEmbed = Quill.import('blots/block/embed');
+
+class CustomImage extends BlockEmbed {
+  static create(value) {
+    let node = super.create();
+    node.setAttribute('class', 'image-figure');
+    node.setAttribute('contenteditable', 'false');
+
+    let img = document.createElement('img');
+    let src = typeof value === 'string' ? value : value.src;
+    let alt = value.alt || '';
+    
+    img.setAttribute('src', this.sanitize(src));
+    if (alt) {
+      img.setAttribute('alt', alt);
+    }
+    node.appendChild(img);
+
+    if (alt) {
+      let caption = document.createElement('figcaption');
+      caption.setAttribute('class', 'image-caption');
+      caption.innerText = alt;
+      node.appendChild(caption);
+    }
+
+    return node;
+  }
+
+  static value(node) {
+    let img = node.querySelector('img');
+    return {
+      src: img ? img.getAttribute('src') : '',
+      alt: img ? img.getAttribute('alt') : ''
+    };
+  }
+  
+  static sanitize(url) {
+    return url;
+  }
+}
+CustomImage.blotName = 'image';
+CustomImage.tagName = 'figure';
+Quill.register({'formats/image': CustomImage}, true);
+
 const EditBlog = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -103,6 +148,44 @@ const EditBlog = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const editor = document.querySelector('.ql-editor');
+    if (!editor) return;
+
+    const handleContextMenu = (e) => {
+      if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+        const currentAlt = e.target.getAttribute('alt') || '';
+        const newAlt = window.prompt('Nhập chú thích cho hình ảnh này (hiển thị dưới ảnh):', currentAlt);
+        if (newAlt !== null) {
+          e.target.setAttribute('alt', newAlt);
+          e.target.setAttribute('title', newAlt);
+          
+          let figure = e.target.parentNode;
+          if (figure && figure.tagName === 'FIGURE') {
+            let caption = figure.querySelector('figcaption');
+            if (newAlt) {
+              if (!caption) {
+                caption = document.createElement('figcaption');
+                caption.setAttribute('class', 'image-caption');
+                figure.appendChild(caption);
+              }
+              caption.innerText = newAlt;
+            } else {
+              if (caption) caption.remove();
+            }
+          }
+
+          // Force update formData to save the new HTML
+          setFormData(prev => ({ ...prev, content: editor.innerHTML }));
+        }
+      }
+    };
+
+    editor.addEventListener('contextmenu', handleContextMenu);
+    return () => editor.removeEventListener('contextmenu', handleContextMenu);
+  }, [formData.content]);
 
   if (fetching) {
     return <div className="add-blog-container"><p>Đang tải dữ liệu bài viết...</p></div>;

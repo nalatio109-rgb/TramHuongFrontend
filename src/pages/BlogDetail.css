@@ -198,16 +198,43 @@
   letter-spacing: 0.3px;
 }
 
-.blog-html-content a {
+.blog-html-content a,
+.blog-html-content a * {
   color: #dfba73 !important;
+}
+
+.blog-html-content a {
   text-decoration: none;
   border-bottom: 1px dashed rgba(212, 175, 55, 0.5);
   transition: all 0.3s ease;
 }
 
-.blog-html-content a:hover {
+.blog-html-content a:hover,
+.blog-html-content a:hover * {
   color: #fff !important;
   border-bottom-color: #fff;
+}
+
+.image-figure {
+  margin: 2rem auto;
+  text-align: center;
+  max-width: 100%;
+}
+
+.image-figure img {
+  border-radius: 8px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.image-caption {
+  margin-top: 0.3rem;
+  font-style: italic;
+  color: #a39c93;
+  font-size: 0.9rem;
+  text-align: center;
 }
 
 .blog-html-content h2,
@@ -251,7 +278,7 @@
   margin-bottom: 0.5rem;
 }
 
-.blog-html-content img {
+.blog-html-content img:not(.image-figure img) {
   max-width: 100%;
   border-radius: 12px;
   margin: 2rem 0;

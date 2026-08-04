@@ -132,13 +132,30 @@
   color: rgba(255, 255, 255, 0.5) !important;
 }
 
-.ql-editor a {
+.ql-editor a,
+.ql-editor a * {
   color: #d4af37 !important;
   text-decoration: underline !important;
 }
+.ql-editor figure.image-figure {
+  margin: 1.5rem auto;
+  text-align: center;
+}
 
+.ql-editor figure.image-figure img {
+  margin: 0 auto !important;
+  display: block;
+  border-radius: 8px;
+}
 
-
+.ql-editor .image-caption {
+  margin-top: 0.3rem;
+  font-style: italic;
+  color: #8c8275;
+  font-size: 0.9rem;
+  text-align: center;
+  display: block;
+}
 /* Đổi màu các icon trong toolbar sang dễ nhìn hơn trên nền tối */
 .ql-snow .ql-stroke {
   stroke: #3b2f28 !important;
