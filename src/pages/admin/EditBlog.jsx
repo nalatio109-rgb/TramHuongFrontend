@@ -154,15 +154,28 @@ const EditBlog = () => {
     if (!editor) return;
 
     const handleContextMenu = (e) => {
-      if (e.target.tagName === 'IMG') {
+      const target = e.target;
+      // Allow clicking on IMG, FIGURE, or FIGCAPTION to trigger the prompt
+      if (target.tagName === 'IMG' || target.tagName === 'FIGURE' || target.tagName === 'FIGCAPTION') {
         e.preventDefault();
-        const currentAlt = e.target.getAttribute('alt') || '';
+        
+        // Find the actual img element
+        let img = target;
+        if (target.tagName === 'FIGURE') {
+          img = target.querySelector('img');
+        } else if (target.tagName === 'FIGCAPTION') {
+          img = target.parentNode.querySelector('img');
+        }
+        
+        if (!img) return;
+
+        const currentAlt = img.getAttribute('alt') || '';
         const newAlt = window.prompt('Nhập chú thích cho hình ảnh này (hiển thị dưới ảnh):', currentAlt);
         if (newAlt !== null) {
-          e.target.setAttribute('alt', newAlt);
-          e.target.setAttribute('title', newAlt);
+          img.setAttribute('alt', newAlt);
+          img.setAttribute('title', newAlt);
           
-          let figure = e.target.parentNode;
+          let figure = img.parentNode;
           if (figure && figure.tagName === 'FIGURE') {
             let caption = figure.querySelector('figcaption');
             if (newAlt) {
