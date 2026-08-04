@@ -105,6 +105,50 @@
   line-height: 1.6;
 }
 
+/* Tùy chỉnh ReactQuill cho phần Admin */
+.ql-toolbar {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid #dcd3c6 !important;
+  border-bottom: none !important;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.ql-container {
+  background-color: #1a1a1a !important; /* Nền tối */
+  color: #ffffff !important; /* Chữ màu trắng theo yêu cầu */
+  border: 1px solid #dcd3c6 !important;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  font-family: inherit !important;
+  font-size: 1rem !important;
+}
+
+.ql-editor {
+  min-height: 350px;
+}
+
+.ql-editor.ql-blank::before {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Ép tất cả các text copy từ nơi khác mất màu gốc để theo chuẩn màu trắng của editor */
+.ql-editor *[style] {
+  color: inherit !important;
+  background-color: transparent !important;
+}
+
+/* Đổi màu các icon trong toolbar sang dễ nhìn hơn trên nền tối */
+.ql-snow .ql-stroke {
+  stroke: #3b2f28 !important;
+}
+.ql-snow .ql-fill {
+  fill: #3b2f28 !important;
+}
+.ql-snow .ql-picker {
+  color: #3b2f28 !important;
+}
+
 .checkbox-group {
   display: flex;
   align-items: center;

@@ -2,6 +2,8 @@ import { API_BASE_URL } from '../../config';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Save, ArrowLeft } from 'lucide-react';
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
 import './AddBlog.css';
 
 const AddBlog = () => {
@@ -18,6 +20,7 @@ const AddBlog = () => {
     category: 'Kiến Thức',
     readTime: '5 phút đọc',
     coverImage: '',
+    keywords: '',
     isPublished: true,
   });
 
@@ -118,15 +121,22 @@ const AddBlog = () => {
 
               <div className="form-group">
                 <label htmlFor="content">Nội dung chi tiết (hỗ trợ HTML/Markdown)</label>
-                <textarea
-                  id="content"
-                  name="content"
+                <ReactQuill 
+                  theme="snow"
                   value={formData.content}
-                  onChange={handleChange}
+                  onChange={(content) => setFormData({ ...formData, content })}
                   placeholder="Nhập nội dung bài viết..."
-                  rows="15"
-                  className="content-textarea"
-                ></textarea>
+                  style={{ height: '400px', marginBottom: '50px' }}
+                  modules={{
+                    toolbar: [
+                      [{ 'header': [1, 2, 3, false] }],
+                      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                      [{'list': 'ordered'}, {'list': 'bullet'}],
+                      ['link', 'image'],
+                      ['clean']
+                    ],
+                  }}
+                />
               </div>
             </div>
           </div>
@@ -152,6 +162,18 @@ const AddBlog = () => {
               </div>
 
               <div className="form-group">
+                <label htmlFor="keywords">Từ khóa (Keywords SEO)</label>
+                <input
+                  type="text"
+                  id="keywords"
+                  name="keywords"
+                  value={formData.keywords}
+                  onChange={handleChange}
+                  placeholder="Ví dụ: trầm hương, xông nhà..."
+                />
+              </div>
+
+              <div className="form-group">
                 <label htmlFor="author">Tác giả</label>
                 <input
                   type="text"
@@ -174,27 +196,7 @@ const AddBlog = () => {
                 />
               </div>
 
-              <div className="form-group">
-                <label htmlFor="coverImage">URL Hình ảnh Cover (Tùy chọn)</label>
-                <input
-                  type="text"
-                  id="coverImage"
-                  name="coverImage"
-                  value={formData.coverImage}
-                  onChange={handleChange}
-                  placeholder="https://..."
-                />
-                {formData.coverImage && (
-                  <div style={{ marginTop: '10px', height: '160px', borderRadius: '8px', overflow: 'hidden', border: '1px solid #dcd3c6' }}>
-                    <img 
-                      src={formData.coverImage} 
-                      alt="Preview" 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                      onError={(e) => { e.target.style.display = 'none'; e.target.parentElement.innerHTML = '<div style="padding:1rem;color:#ef4444;text-align:center;font-size:0.9rem">URL ảnh không hợp lệ hoặc lỗi tải ảnh</div>'; }}
-                    />
-                  </div>
-                )}
-              </div>
+
 
               <div className="form-group checkbox-group">
                 <input

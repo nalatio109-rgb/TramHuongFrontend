@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Calendar, User, ArrowLeft, Clock, Share2 } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
 import { API_BASE_URL } from '../config';
 import './BlogDetail.css';
 
@@ -23,7 +22,7 @@ const BlogDetail = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    
+
     const fetchPost = async () => {
       try {
         const response = await fetch(`${API_BASE_URL}/api/blog/${id}`);
@@ -40,6 +39,36 @@ const BlogDetail = () => {
 
     fetchPost();
   }, [id]);
+
+  // Update SEO meta tags when post data is loaded
+  useEffect(() => {
+    if (post) {
+      // 1. Update Title
+      document.title = `${post.title} - Trầm Hương`;
+
+      // 2. Update Meta Description
+      if (post.summary) {
+        let metaDesc = document.querySelector('meta[name="description"]');
+        if (!metaDesc) {
+          metaDesc = document.createElement('meta');
+          metaDesc.name = 'description';
+          document.head.appendChild(metaDesc);
+        }
+        metaDesc.content = post.summary;
+      }
+
+      // 3. Update Meta Keywords for SEO
+      if (post.keywords) {
+        let metaKeywords = document.querySelector('meta[name="keywords"]');
+        if (!metaKeywords) {
+          metaKeywords = document.createElement('meta');
+          metaKeywords.name = 'keywords';
+          document.head.appendChild(metaKeywords);
+        }
+        metaKeywords.content = post.keywords;
+      }
+    }
+  }, [post]);
 
   const formatDate = (dateString) => {
     if (!dateString) return '';
@@ -74,12 +103,12 @@ const BlogDetail = () => {
       <section className="blog-hero">
         <div className="blog-hero-bg">
           {post.coverImage ? (
-            <img 
-              src={post.coverImage} 
-              alt={post.title} 
-              onError={(e) => { 
-                e.target.style.display = 'none'; 
-                e.target.nextSibling.style.display = 'block'; 
+            <img
+              src={post.coverImage}
+              alt={post.title}
+              onError={(e) => {
+                e.target.style.display = 'none';
+                e.target.nextSibling.style.display = 'block';
               }}
             />
           ) : null}
@@ -94,11 +123,11 @@ const BlogDetail = () => {
             <Link to="/" className="back-link glass-link">
               <ArrowLeft size={16} /> Về trang chủ
             </Link>
-            
+
             <div className="blog-category-badge">{post.category}</div>
-            
+
             <h1 className="blog-title-main">{post.title}</h1>
-            
+
             <div className="blog-meta-main">
               <div className="meta-item">
                 <Calendar size={16} />
@@ -113,6 +142,8 @@ const BlogDetail = () => {
                 <span>{post.readTime}</span>
               </div>
             </div>
+
+
           </div>
         </div>
       </section>
@@ -127,11 +158,10 @@ const BlogDetail = () => {
                 <p>{post.summary}</p>
               </div>
             )}
-            
-            <div className="blog-html-content">
-              <ReactMarkdown>{post.content}</ReactMarkdown>
+
+            <div className="blog-html-content" dangerouslySetInnerHTML={{ __html: (post.content || '').replace(/&nbsp;/g, ' ') }}>
             </div>
-            
+
             <div className="blog-footer-actions">
               <div className="share-buttons">
                 <span>Chia sẻ bài viết:</span>
@@ -143,6 +173,27 @@ const BlogDetail = () => {
           </div>
         </div>
       </section>
+
+      {/* Floating Keywords Widget (Desktop only) */}
+      <div className="blog-keywords-floating">
+        <div className="keywords-floating-header">
+          <span className="keywords-title">Tags</span>
+        </div>
+        <div className="keywords-floating-divider"></div>
+        <div className="keywords-list">
+          {post.keywords ? (
+            post.keywords.split(',').map((keyword, index) => (
+              keyword.trim() && (
+                <span key={index} className="keyword-tag-premium">
+                  {keyword.trim()}
+                </span>
+              )
+            ))
+          ) : (
+            <span className="keyword-tag-empty">Chưa có từ khóa</span>
+          )}
+        </div>
+      </div>
     </article>
   );
 };
